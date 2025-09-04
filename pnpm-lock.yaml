@@ -95,6 +95,9 @@ importers:
       '@tanstack/react-query':
         specifier: ^5.56.2
         version: 5.74.4(react@18.3.1)
+      '@vapi-ai/server-sdk':
+        specifier: ^0.10.0
+        version: 0.10.0
       '@vapi-ai/web':
         specifier: ^2.3.10
         version: 2.3.10
@@ -1433,6 +1436,9 @@ packages:
   '@typescript-eslint/visitor-keys@8.30.1':
     resolution: {integrity: sha512-aEhgas7aJ6vZnNFC7K4/vMGDGyOiqWcYZPpIWrTKuTAlsvDNKy2GFDqh9smL+iq069ZvR0YzEeq0B8NJlLzjFA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  '@vapi-ai/server-sdk@0.10.0':
+    resolution: {integrity: sha512-sdpTiMEHw+OsXohy5bHzjTsdfYPjcWngtOdCWM0MXupZFVAfzYR9xLI21q22ZcoUxV35EN1v9M8ZXKRW6H263w==}
 
   '@vapi-ai/web@2.3.10':
     resolution: {integrity: sha512-k3u9xCypDPcSpVahWg8F5KXxen/LkAYcaMebgVGuqA78w+5fP1ArThZU7YeMbPNiOpBrbTl3WMu5vR0qsc7ddg==}
@@ -3673,6 +3679,8 @@ snapshots:
     dependencies:
       '@typescript-eslint/types': 8.30.1
       eslint-visitor-keys: 4.2.0
+
+  '@vapi-ai/server-sdk@0.10.0': {}
 
   '@vapi-ai/web@2.3.10':
     dependencies:
