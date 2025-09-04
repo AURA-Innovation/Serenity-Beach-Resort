@@ -2,8 +2,7 @@
 
 import React from "react";
 import HeaderNav from "@/components/HeaderNav";
-import HeroSection from "@/components/HeroSection";
-import HeroChatPanel from "@/components/HeroChatPanel";
+import Hero from "@/components/Hero";
 import AboutSection from "@/components/AboutSection";
 import PropertiesSection from "@/components/PropertiesSection";
 import BeachfrontSection from "@/components/BeachfrontSection";
@@ -18,16 +17,7 @@ const Index: React.FC = () => {
   return (
     <main className="min-h-screen">
       <HeaderNav />
-
-      <section className="relative">
-        <HeroSection />
-        <div className="absolute bottom-6 right-6 left-6 md:left-auto z-50 flex justify-center md:justify-end">
-          <div className="w-full max-w-md">
-            <HeroChatPanel />
-          </div>
-        </div>
-      </section>
-
+      <Hero />
       <AboutSection />
       <PropertiesSection />
       <BeachfrontSection />
