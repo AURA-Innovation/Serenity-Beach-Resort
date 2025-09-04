@@ -14,6 +14,7 @@ const BeachfrontSection = lazy(() => import("@/components/BeachfrontSection"));
 const ActivitiesSection = lazy(() => import("@/components/ActivitiesSection"));
 const PhotosSection = lazy(() => import("@/components/PhotosSection"));
 const PropertiesSection = lazy(() => import("@/components/PropertiesSection"));
+const AvailablePropertiesSection = lazy(() => import("@/components/AvailablePropertiesSection"));
 const ContactSection = lazy(() => import("@/components/ContactSection"));
 import SiteFooter from "@/components/SiteFooter";
 import SkipToContent from "@/components/SkipToContent";
@@ -44,7 +45,6 @@ const Index = () => {
     meta.content = description;
   }, []);
 
-  // Intercept clicks on booking links and open BookingModal instead of leaving the app
   React.useEffect(() => {
     const handler = (e: MouseEvent) => {
       const target = e.target as HTMLElement | null;
@@ -74,11 +74,9 @@ const Index = () => {
     return () => document.removeEventListener("click", handler, { capture: true } as any);
   }, []);
 
-  // Also support deep-linking via hash
   React.useEffect(() => {
     if (location.hash === "#book" || location.hash === "#booking") {
       setBookingOpen(true);
-      // optional: clean up the hash to avoid repeated triggers on reload
       history.replaceState(null, "", location.pathname + location.search);
     }
   }, []);
@@ -129,6 +127,10 @@ const Index = () => {
 
             <Suspense fallback={<SectionLoader />}>
               <PropertiesSection />
+            </Suspense>
+
+            <Suspense fallback={<SectionLoader />}>
+              <AvailablePropertiesSection />
             </Suspense>
 
             <Suspense fallback={<SectionLoader />}>
