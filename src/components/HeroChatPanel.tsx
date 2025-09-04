@@ -25,6 +25,7 @@ const HeroChatPanel: React.FC<Props> = ({ className }) => {
   return (
     <div
       className={[
+        "pointer-events-auto", // ensure this panel can be clicked/focused
         "glass-panel hover-shimmer rounded-2xl p-4 md:p-5 shadow-lg w-full max-w-md",
         "backdrop-blur supports-[backdrop-filter]:backdrop-blur",
         "bg-white/10 border border-white/25",
@@ -54,12 +55,11 @@ const HeroChatPanel: React.FC<Props> = ({ className }) => {
         />
         <Button
           type="submit"
-          size="icon"
-          className="bg-[#007bff] hover:bg-[#0056b3]"
+          className="bg-[#007bff] hover:bg-[#0056b3] text-white"
           disabled={!value.trim()}
-          aria-label="Send message"
         >
-          <Send className="h-4 w-4" />
+          <Send className="h-4 w-4 mr-2" />
+          <span>Send</span>
         </Button>
       </form>
 

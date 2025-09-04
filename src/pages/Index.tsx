@@ -21,8 +21,8 @@ const Index: React.FC = () => {
 
       <section className="relative">
         <HeroSection />
-        <div className="pointer-events-none absolute bottom-6 right-6 left-6 md:left-auto z-30 flex justify-center md:justify-end">
-          <div className="pointer-events-auto w-full max-w-md">
+        <div className="absolute bottom-6 right-6 left-6 md:left-auto z-50 flex justify-center md:justify-end">
+          <div className="w-full max-w-md">
             <HeroChatPanel />
           </div>
         </div>
