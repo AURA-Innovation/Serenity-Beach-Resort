@@ -31,15 +31,17 @@ const HeaderNav: React.FC = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 border-b">
-      <div className="mx-auto max-w-[1200px] px-4 py-3 flex items-center justify-between">
-        <a href="#hero" className="flex items-center gap-2">
-          <img
-            src="https://serenityabaco.com/wp-content/uploads/2022/05/logo-1.png"
-            alt="Serenity Abaco Logo"
-            className="h-9 w-auto"
-            loading="eager"
-          />
+    <header className="sticky top-0 z-50 w-full border-b">
+      <div className="glass dark:glass-dark mx-auto max-w-[1200px] px-4 py-3 flex items-center justify-between backdrop-blur-md">
+        <a href="#hero" className="flex items-center gap-3">
+          <div className="rounded-md overflow-hidden bg-white/10 p-1 flex items-center justify-center">
+            <img
+              src="https://serenityabaco.com/wp-content/uploads/2022/05/logo-1.png"
+              alt="Serenity Abaco Logo"
+              className="h-9 w-auto"
+              loading="eager"
+            />
+          </div>
         </a>
 
         <nav className="hidden md:flex items-center gap-6">
@@ -47,12 +49,21 @@ const HeaderNav: React.FC = () => {
             <a
               key={link.href}
               href={link.href}
-              className="text-sm font-medium text-gray-700 hover:text-[#007bff] transition-colors"
+              onClick={(e) => {
+                // smooth scroll through handleNavClick
+                e.preventDefault();
+                handleNavClick(link.href);
+              }}
+              className="relative text-sm font-medium text-gray-800 dark:text-gray-100 hover:text-[#007bff] transition-colors px-3 py-1 rounded-md hover:bg-white/10"
             >
               {link.label}
             </a>
           ))}
-          <Button asChild className="bg-[#007bff] hover:bg-[#0056b3]">
+          <Button
+            asChild
+            className="bg-[#007bff] hover:bg-[#0056b3] text-white shadow-sm"
+            onClick={() => {}}
+          >
             <a href="#contact">Contact Us</a>
           </Button>
         </nav>
@@ -60,11 +71,11 @@ const HeaderNav: React.FC = () => {
         <div className="md:hidden">
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
-              <Button variant="outline" size="icon" aria-label="Open menu">
+              <Button variant="outline" size="icon" aria-label="Open menu" className="bg-white/5">
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[280px]">
+            <SheetContent side="right" className="w-[280px] glass-card">
               <SheetHeader>
                 <SheetTitle className="flex items-center gap-2">
                   <img
