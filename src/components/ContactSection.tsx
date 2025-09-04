@@ -13,17 +13,7 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
-
-const CONTACT = {
-  name: "Serenity Beach Resort",
-  addressLines: ["Schooner Bay, Crossing Rocks", "Abaco, The Bahamas"],
-  hours: "Open today 09:00 am – 05:00 pm",
-  phone: "4067506135",
-  phonePretty: "(406) 750-6135",
-  email: "mhawn@ranchesatbeltcreek.com",
-  mapSrc:
-    "https://maps.googleapis.com/maps/api/js/StaticMapService.GetMapImage?1m2&1i74724&2i111011&2e1&3u10&4m2&1u600&2u300&5m6&1e0&5sen-US&6sus&10b1&12b1&14i47083502&8e1&client=google-maps-embed&token=7436",
-};
+import { CONTACT } from "@/config/contact";
 
 const ContactSection = () => {
   const { ref, inView } = useInView<HTMLDivElement>();
@@ -44,7 +34,7 @@ const ContactSection = () => {
       toast.success("Message sent! Thank you.", {
         id,
         action: {
-          label: "Book a call",
+          label: "Call us",
           onClick: () => (window.location.href = `tel:${CONTACT.phone}`),
         },
       });
@@ -60,7 +50,7 @@ const ContactSection = () => {
         className={`mx-auto max-w-[1200px] px-4 transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
       >
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
-          Contact Serenity Beach Resort
+          Contact {CONTACT.businessName}
         </h2>
         <p className="text-center text-gray-700 max-w-[65ch] leading-7 mx-auto">
           We would love to hear from you — whether it’s to book a treatment, inquire about properties,
@@ -70,7 +60,7 @@ const ContactSection = () => {
         <div className="mt-8 grid gap-8 md:grid-cols-2 items-start">
           <div className="space-y-6">
             <div className="rounded-lg border bg-white p-6 shadow-sm">
-              <h3 className="text-xl font-semibold mb-3">{CONTACT.name}</h3>
+              <h3 className="text-xl font-semibold mb-3">{CONTACT.businessName}</h3>
 
               <div className="text-gray-700 mb-3">
                 {CONTACT.addressLines.map((line) => (
@@ -100,13 +90,13 @@ const ContactSection = () => {
 
               <div className="mt-4 flex gap-3">
                 <Button asChild variant="outline">
-                  <a href="https://goo.gl/maps/V8ZmdfWyqCuv6bcYA" target="_blank" rel="noreferrer">
+                  <a href={CONTACT.mapPlaceUrl} target="_blank" rel="noreferrer">
                     Locate Us
                   </a>
                 </Button>
 
                 <Button asChild variant="outline" className="bg-green-600 hover:bg-green-700 text-white border-green-600">
-                  <a href="https://wa.me/14067506135?text=Hi%2C%20I%27d%20like%20to%20inquire%20about%20Serenity%20Beach%20Resort" target="_blank" rel="noreferrer">
+                  <a href={CONTACT.whatsappUrl} target="_blank" rel="noreferrer">
                     WhatsApp Us
                   </a>
                 </Button>
@@ -115,18 +105,6 @@ const ContactSection = () => {
                   <a href="#booking">Request a Call</a>
                 </Button>
               </div>
-
-              <p className="mt-4 text-xs text-gray-500">
-                This site is protected by reCAPTCHA and the Google{" "}
-                <a className="text-[#007bff] hover:underline" href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">
-                  Privacy Policy
-                </a>{" "}
-                and{" "}
-                <a className="text-[#007bff] hover:underline" href="https://policies.google.com/terms" target="_blank" rel="noreferrer">
-                  Terms of Service
-                </a>{" "}
-                apply.
-              </p>
             </div>
 
             <div className="rounded-lg overflow-hidden border shadow-sm">
@@ -144,9 +122,9 @@ const ContactSection = () => {
           </div>
 
           <div className="rounded-2xl border border-white/30 bg-white/60 backdrop-blur-md p-6 shadow-lg">
-            <h3 className="text-xl font-semibold mb-4">Send Us a Message</h3>
+            <h3 className="text-xl font-semibold mb-1">Send Us a Message</h3>
             <p className="text-sm text-gray-600 mb-4">
-              Prefer to message us? Fill out the form and we’ll get back to you shortly.
+              We’ll respond by email or phone. For urgent inquiries, call {CONTACT.phonePretty}.
             </p>
 
             <form onSubmit={onSubmit} className="grid gap-4" aria-label="Contact form">
@@ -209,7 +187,7 @@ const ContactSection = () => {
 
                 <div className="text-sm text-gray-600">
                   Or{" "}
-                  <a href="https://wa.me/14067506135?text=Hi%2C%20I%27d%20like%20to%20inquire%20about%20Serenity%20Beach%20Resort" className="text-green-600 hover:underline" target="_blank" rel="noreferrer">
+                  <a href={CONTACT.whatsappUrl} className="text-green-600 hover:underline" target="_blank" rel="noreferrer">
                     WhatsApp us
                   </a>
                   {" "}or{" "}

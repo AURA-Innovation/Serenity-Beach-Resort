@@ -3,14 +3,16 @@
 import React from "react";
 import { useInView } from "@/hooks/useInView";
 import { Button } from "@/components/ui/button";
+import ImageWithBlur from "@/components/ImageWithBlur";
+import { buildUnsplashSrcSet } from "@/utils/img";
 
 const CLUBHOUSE_IMAGES = [
   {
-    src: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1600&q=80",
+    src: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&q=80",
     alt: "Luxury resort clubhouse with infinity pool and panoramic ocean views",
   },
   {
-    src: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1600&q=80",
+    src: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&q=80",
     alt: "Elegant clubhouse dining terrace with ocean views and tropical ambiance",
   },
 ];
@@ -77,15 +79,14 @@ const ClubhouseSection: React.FC = () => {
 
           <div className="space-y-4">
             {CLUBHOUSE_IMAGES.map((img) => (
-              <div
-                key={img.src}
-                className="rounded-lg overflow-hidden shadow-lg bg-gray-50"
-              >
-                <img
+              <div key={img.src} className="rounded-lg overflow-hidden shadow-lg bg-gray-50">
+                <ImageWithBlur
                   src={img.src}
                   alt={img.alt}
-                  className="w-full h-[280px] object-cover"
-                  loading="lazy"
+                  srcSet={buildUnsplashSrcSet(img.src)}
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  containerClassName="w-full aspect-[16/9]"
+                  className="w-full h-full object-cover"
                 />
               </div>
             ))}

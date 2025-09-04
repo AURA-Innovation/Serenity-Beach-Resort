@@ -2,27 +2,42 @@
 
 import { useEffect, useRef, useState } from "react";
 
-export function useInView<T extends HTMLElement>(options?: IntersectionObserverInit) {
+type UseInViewOptions = IntersectionObserverInit & {
+  once?: boolean;
+};
+
+export function useInView<T extends HTMLElement>(options?: UseInViewOptions) {
   const ref = useRef<T | null>(null);
   const [inView, setInView] = useState(false);
 
   useEffect(() => {
-    // Respect user preference for reduced motion
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReduced) {
+      // Respect reduced motion: show content without animations
       setInView(true);
       return;
     }
 
     if (!ref.current) return;
+
+    const { once = false, ...observerOpts } = options || {};
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) setInView(true);
+          if (once) {
+            if (entry.isIntersecting) {
+              setInView(true);
+              observer.unobserve(entry.target);
+            }
+          } else {
+            // Re-trigger on enter/exit to animate both ways
+            setInView(entry.isIntersecting);
+          }
         });
       },
-      { root: null, rootMargin: "0px", threshold: 0.15, ...options }
+      { root: null, rootMargin: "0px", threshold: 0.15, ...observerOpts }
     );
+
     observer.observe(ref.current);
     return () => observer.disconnect();
   }, [options]);

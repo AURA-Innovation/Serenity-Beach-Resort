@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/sheet";
 import { useIsMobile } from "@/hooks/use-mobile";
 import NavCallButton from "@/components/NavCallButton";
+import { CONTACT } from "@/config/contact";
 
 const NAV_LINKS = [
   { label: "The Resort", href: "#resort" },
@@ -21,8 +22,6 @@ const NAV_LINKS = [
   { label: "Contact", href: "#contact" },
 ];
 
-const PHONE = "4067506135";
-
 const HeaderNav: React.FC = () => {
   const [open, setOpen] = React.useState(false);
   const [scrolled, setScrolled] = React.useState(false);
@@ -30,10 +29,11 @@ const HeaderNav: React.FC = () => {
   const [activeId, setActiveId] = React.useState<string>("");
   const isMobile = useIsMobile();
 
-  const handleNavClick = (href: string) => {
+  const handleNavClick = (href: string, e?: React.MouseEvent) => {
     setOpen(false);
+    e?.preventDefault();
     if (isMobile && href === "#contact") {
-      window.location.href = `tel:${PHONE}`;
+      window.location.href = `tel:${CONTACT.phone}`;
       return;
     }
     const el = document.querySelector(href);
@@ -93,11 +93,12 @@ const HeaderNav: React.FC = () => {
         <a href="#hero" className="flex items-center gap-2" aria-label="Go to top">
           <img
             src="https://serenityabaco.com/wp-content/uploads/2022/05/logo-1.png"
-            alt="Serenity Abaco Logo"
+            alt=""
+            aria-hidden="true"
             className="h-8 w-auto"
             loading="eager"
           />
-          <span
+            <span
             className={`hidden sm:inline text-sm font-semibold tracking-[0.16em] ${brandTextClass}`}
             style={{ fontVariantCaps: "small-caps", fontVariantLigatures: "discretionary-ligatures" } as React.CSSProperties}
           >
@@ -109,13 +110,15 @@ const HeaderNav: React.FC = () => {
           {NAV_LINKS.map((link) => {
             const isActive = activeId === link.href;
             return (
-              <button
+              <a
                 key={link.href}
-                onClick={() => handleNavClick(link.href)}
-                className={`text-sm font-medium transition-colors nav-underline ${linkBase} ${isActive ? "text-[#007bff]" : ""}`}
+                href={link.href}
+                onClick={(e) => handleNavClick(link.href, e)}
+                aria-current={isActive ? "page" : undefined}
+                className={`text-sm font-medium transition-colors nav-underline ${linkBase} ${isActive ? "text-[#007bff]" : ""} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#007bff] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded`}
               >
                 {link.label}
-              </button>
+              </a>
             );
           })}
           <NavCallButton />
@@ -124,9 +127,9 @@ const HeaderNav: React.FC = () => {
             className={`${scrolled ? "" : "bg-white/10 hover:bg-white/20 border-white/30 text-white"} bg-[#007bff] hover:bg-[#0056b3] btn-lux btn-gold-hover`}
           >
             {isMobile ? (
-              <a href={`tel:${PHONE}`}>Call Us</a>
+              <a href={`tel:${CONTACT.phone}`}>Call Us</a>
             ) : (
-              <a href="#contact">Contact Us</a>
+              <a href="#contact" onClick={(e) => handleNavClick("#contact", e)}>Contact Us</a>
             )}
           </Button>
         </nav>
@@ -148,7 +151,8 @@ const HeaderNav: React.FC = () => {
                 <SheetTitle className="flex items-center gap-2">
                   <img
                     src="https://serenityabaco.com/wp-content/uploads/2022/05/logo-1.png"
-                    alt="Serenity Abaco Logo"
+                    alt=""
+                    aria-hidden="true"
                     className="h-8 w-auto"
                   />
                   <span className="text-sm font-semibold tracking-[0.16em]" style={{ fontVariantCaps: "small-caps" } as React.CSSProperties}>
@@ -162,7 +166,7 @@ const HeaderNav: React.FC = () => {
                     key={link.href}
                     variant={activeId === link.href ? "secondary" : "ghost"}
                     className="justify-start text-base"
-                    onClick={() => handleNavClick(link.href)}
+                    onClick={(e) => handleNavClick(link.href, e as any)}
                   >
                     {link.label}
                   </Button>
@@ -170,7 +174,7 @@ const HeaderNav: React.FC = () => {
                 <NavCallButton />
                 <Button
                   className="mt-2 bg-[#007bff] hover:bg-[#0056b3] btn-lux btn-gold-hover"
-                  onClick={() => handleNavClick("#contact")}
+                  onClick={(e) => handleNavClick("#contact", e as any)}
                 >
                   {isMobile ? "Call Us" : "Contact Us"}
                 </Button>

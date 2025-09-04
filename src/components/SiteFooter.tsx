@@ -1,5 +1,7 @@
 "use client";
 
+import { CONTACT } from "@/config/contact";
+
 const SiteFooter = () => {
   return (
     <footer className="bg-[#343a40] text-white">
@@ -7,7 +9,8 @@ const SiteFooter = () => {
         <div className="min-w-[220px]">
           <img
             src="https://serenityabaco.com/wp-content/uploads/2022/05/SERENITY-LOGO-SM.png"
-            alt="Serenity Abaco Logo"
+            alt=""
+            aria-hidden="true"
             className="h-10 w-auto mb-4"
             loading="lazy"
           />
@@ -34,19 +37,21 @@ const SiteFooter = () => {
           <ul className="space-y-2 text-gray-300">
             <li>
               <a
-                href="https://goo.gl/maps/V8ZmdfWyqCuv6bcYA"
+                href={CONTACT.mapPlaceUrl}
                 className="hover:text-[#007bff]"
+                target="_blank"
+                rel="noreferrer"
               >
-                Abaco Bahamas
+                {CONTACT.addressLines[1]} {/* City/Region */}
               </a>
             </li>
-            <li><a href="tel:4067506135" className="hover:text-[#007bff]">406-750-6135</a></li>
+            <li><a href={`tel:${CONTACT.phone}`} className="hover:text-[#007bff]">{CONTACT.phonePretty}</a></li>
             <li>
               <a
-                href="mailto:mhawn@ranchesatbeltcreek.com"
+                href={`mailto:${CONTACT.email}`}
                 className="hover:text-[#007bff]"
               >
-                mhawn@ranchesatbeltcreek.com
+                {CONTACT.email}
               </a>
             </li>
           </ul>

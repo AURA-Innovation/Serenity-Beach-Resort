@@ -4,6 +4,8 @@ import React from "react";
 import { useInView } from "@/hooks/useInView";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import ImageWithBlur from "@/components/ImageWithBlur";
+import { buildUnsplashSrcSet, defaultSizes } from "@/utils/img";
 
 type Status = "Available" | "Reserved" | "Sold";
 
@@ -26,7 +28,7 @@ const BEACHFRONT_PROPERTIES: BeachfrontProp[] = [
     frontage: "90 ft beach frontage",
     elevation: "10 - 20 ft",
     features: "Beach View • Sunrise View",
-    img: "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1200&q=80",
+    img: "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&q=80",
     status: "Available",
   },
   {
@@ -36,7 +38,7 @@ const BEACHFRONT_PROPERTIES: BeachfrontProp[] = [
     frontage: "105 ft beach frontage",
     elevation: "10 - 20 ft",
     features: "Beach View • Sunrise View",
-    img: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80",
+    img: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80",
     status: "Reserved",
   },
   {
@@ -46,7 +48,7 @@ const BEACHFRONT_PROPERTIES: BeachfrontProp[] = [
     frontage: "107 ft beach frontage",
     elevation: "10 - 20 ft",
     features: "Beach View • Sunset View",
-    img: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80",
+    img: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&q=80",
     status: "Sold",
   },
 ];
@@ -77,17 +79,21 @@ const BeachfrontSection: React.FC = () => {
         </div>
 
         <div className="grid gap-8 md:grid-cols-3">
-          {BEACHFRONT_PROPERTIES.map((p) => (
+          {BEACHFRONT_PROPERTIES.map((p) => {
+            const srcSet = buildUnsplashSrcSet(p.img);
+            return (
             <article
               key={p.id}
               className="rounded-lg overflow-hidden border shadow-sm bg-gray-50 flex flex-col"
             >
               <div className="relative">
-                <img
+                <ImageWithBlur
                   src={p.img}
                   alt={`${p.name} beachfront parcel with ${p.frontage}`}
-                  className="w-full h-48 object-cover"
-                  loading="lazy"
+                  srcSet={srcSet}
+                  sizes="(max-width: 1024px) 100vw, 33vw"
+                  className="w-full h-full object-cover"
+                  containerClassName="w-full aspect-[4/3]"
                 />
                 <span className={`absolute top-3 left-3 text-xs text-white px-2 py-1 rounded ${statusClass(p.status)}`}>
                   {p.status}
@@ -145,7 +151,8 @@ const BeachfrontSection: React.FC = () => {
                 </div>
               </div>
             </article>
-          ))}
+            );
+          })}
         </div>
 
         <div className="mt-8 text-center">

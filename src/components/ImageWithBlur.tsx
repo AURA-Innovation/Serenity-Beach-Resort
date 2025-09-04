@@ -8,14 +8,25 @@ type Props = React.ImgHTMLAttributes<HTMLImageElement> & {
   containerClassName?: string;
 };
 
-const ImageWithBlur: React.FC<Props> = ({ className, containerClassName, onLoad, ...imgProps }) => {
+const ImageWithBlur: React.FC<Props> = ({
+  className,
+  containerClassName,
+  onLoad,
+  loading = "lazy",
+  decoding = "async",
+  alt,
+  ...imgProps
+}) => {
   const [loaded, setLoaded] = React.useState(false);
 
   return (
     <div className={cn("relative overflow-hidden", containerClassName)}>
-      {!loaded && <Skeleton className="absolute inset-0" />}
+      {!loaded && <Skeleton className="absolute inset-0" aria-hidden="true" />}
       <img
         {...imgProps}
+        alt={alt}
+        loading={loading as any}
+        decoding={decoding as any}
         onLoad={(e) => {
           setLoaded(true);
           onLoad?.(e);

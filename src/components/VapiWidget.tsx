@@ -14,9 +14,16 @@ const VapiWidget: React.FC = () => {
   const { isConnected, isConnecting, isSpeaking, startCall, endCall, transcript } = useVapi();
 
   const recent = transcript.slice(-2);
+  const baseClass =
+    isConnected
+      ? "fixed z-50 right-6"
+      : "fixed z-50 right-6 hidden md:block"; // hide when idle on small screens
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
+    <div
+      className={baseClass}
+      style={{ bottom: `calc(1.5rem + env(safe-area-inset-bottom))` }}
+    >
       {!isConnected ? (
         <Button
           onClick={startCall}
@@ -46,7 +53,8 @@ const VapiWidget: React.FC = () => {
           <div className="flex items-center gap-3">
             <img
               src={AVATAR}
-              alt="Serenity Concierge"
+              alt=""
+              aria-hidden="true"
               className="h-8 w-8 rounded-full bg-white/90 p-1"
             />
             <div className="flex-1">

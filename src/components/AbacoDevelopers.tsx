@@ -3,6 +3,8 @@
 import React from "react";
 import { useInView } from "@/hooks/useInView";
 import { Button } from "@/components/ui/button";
+import ImageWithBlur from "@/components/ImageWithBlur";
+import { buildUnsplashSrcSet } from "@/utils/img";
 
 const AbacoDevelopers: React.FC = () => {
   const { ref, inView } = useInView<HTMLDivElement>();
@@ -86,11 +88,13 @@ const AbacoDevelopers: React.FC = () => {
           </div>
 
           <div className="rounded-lg overflow-hidden shadow-lg bg-gray-50">
-            <img
-              src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1600&q=80"
+            <ImageWithBlur
+              src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80"
               alt="Luxury beachfront development with modern architecture and pristine coastline"
-              className="w-full h-[360px] object-cover"
-              loading="lazy"
+              srcSet={buildUnsplashSrcSet("https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80")}
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="w-full h-full object-cover"
+              containerClassName="w-full h-[360px]"
             />
           </div>
         </div>

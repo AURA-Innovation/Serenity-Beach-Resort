@@ -30,10 +30,8 @@ export const VapiProvider: React.FC<VapiProviderProps> = ({ apiKey, assistantId,
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [transcript, setTranscript] = useState<TranscriptItem[]>([]);
 
-  useEffect(() => {
-    const v = new Vapi(apiKey);
-    vapiRef.current = v;
-
+  // Prepare event bindings after Vapi is created
+  const bindEvents = (v: Vapi) => {
     v.on("call-start", () => {
       setIsConnecting(false);
       setIsConnected(true);
@@ -60,19 +58,33 @@ export const VapiProvider: React.FC<VapiProviderProps> = ({ apiKey, assistantId,
       setIsConnecting(false);
       toast.error("Voice assistant error. Please try again.");
     });
+  };
 
+  useEffect(() => {
+    // Cleanup on unmount
     return () => {
-      v.stop();
+      vapiRef.current?.stop();
       vapiRef.current = null;
     };
-  }, [apiKey]);
+  }, []);
+
+  const ensureClient = () => {
+    if (!vapiRef.current) {
+      const v = new Vapi(apiKey);
+      vapiRef.current = v;
+      bindEvents(v);
+    }
+    return vapiRef.current!;
+  };
 
   const startCall = () => {
-    if (!vapiRef.current || isConnecting || isConnected) return;
+    if (isConnecting || isConnected) return;
     setTranscript([]);
     setIsConnecting(true);
 
-    // Light personalization: pass local time as a variable for greeting context
+    const v = ensureClient();
+
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const localTime = new Date().toLocaleString(undefined, {
       hour: "numeric",
       minute: "2-digit",
@@ -80,15 +92,14 @@ export const VapiProvider: React.FC<VapiProviderProps> = ({ apiKey, assistantId,
       weekday: "short",
     });
 
-    vapiRef.current.start(assistantId, {
-      variableValues: { localTime },
+    v.start(assistantId, {
+      variableValues: { localTime, prefersReduced },
       recordingEnabled: false,
     } as any);
   };
 
   const endCall = () => {
-    if (!vapiRef.current) return;
-    vapiRef.current.stop();
+    vapiRef.current?.stop();
   };
 
   const value = useMemo(

@@ -3,28 +3,15 @@
 import React from "react";
 import { useInView } from "@/hooks/useInView";
 import { Button } from "@/components/ui/button";
+import ImageWithBlur from "@/components/ImageWithBlur";
+import { buildUnsplashSrcSet } from "@/utils/img";
 
 const TREATMENTS = [
-  {
-    name: "Signature Massage",
-    desc: "A full-body, deeply relaxing treatment using locally inspired aromatherapy.",
-  },
-  {
-    name: "Revitalizing Facial",
-    desc: "Personalized facial to restore glow and hydration.",
-  },
-  {
-    name: "Couples' Retreat",
-    desc: "Shared treatment suite for romantic or friend getaways.",
-  },
-  {
-    name: "Wellness Consultations",
-    desc: "Guidance on healthy living, nutrition, and recovery routines.",
-  },
-  {
-    name: "Express Treatments",
-    desc: "Short massages or facials for guests on-the-go.",
-  },
+  { name: "Signature Massage", desc: "A full-body, deeply relaxing treatment using locally inspired aromatherapy." },
+  { name: "Revitalizing Facial", desc: "Personalized facial to restore glow and hydration." },
+  { name: "Couples' Retreat", desc: "Shared treatment suite for romantic or friend getaways." },
+  { name: "Wellness Consultations", desc: "Guidance on healthy living, nutrition, and recovery routines." },
+  { name: "Express Treatments", desc: "Short massages or facials for guests on-the-go." },
 ];
 
 const SpaSection: React.FC = () => {
@@ -81,11 +68,13 @@ const SpaSection: React.FC = () => {
           </div>
 
           <div className="rounded-lg overflow-hidden shadow-lg bg-white">
-            <img
-              src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1600&q=80"
+            <ImageWithBlur
+              src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&q=80"
               alt="Luxury spa treatment room with ocean views and serene tropical atmosphere"
-              className="w-full h-[360px] object-cover"
-              loading="lazy"
+              srcSet={buildUnsplashSrcSet("https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&q=80")}
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="w-full h-full object-cover"
+              containerClassName="w-full h-[360px]"
             />
           </div>
         </div>

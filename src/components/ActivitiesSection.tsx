@@ -5,6 +5,8 @@ import { useInView } from "@/hooks/useInView";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
+import ImageWithBlur from "@/components/ImageWithBlur";
+import { buildUnsplashSrcSet, defaultSizes } from "@/utils/img";
 
 type Activity = {
   id: string;
@@ -22,7 +24,7 @@ const ACTIVITIES: Activity[] = [
     id: "kayaking",
     name: "Kayaking",
     href: "https://serenityabaco.com/night-kayaking/",
-    img: "https://images.unsplash.com/photo-1502780402662-acc01917424e?auto=format&fit=crop&w=1200&q=80",
+    img: "https://images.unsplash.com/photo-1502780402662-acc01917424e?auto=format&fit=crop&q=80",
     desc: "Glide across calm waters and discover hidden coves and marine life.",
     category: "Water",
     duration: "2–3 hrs",
@@ -32,7 +34,7 @@ const ACTIVITIES: Activity[] = [
     id: "kiteboarding",
     name: "Kiteboarding",
     href: "https://serenityabaco.com/kiteboarding/",
-    img: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?auto=format&fit=crop&w=1200&q=80",
+    img: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?auto=format&fit=crop&q=80",
     desc: "Ride the wind along Abaco's pristine coastlines — for riders of all levels.",
     category: "Water",
     duration: "2 hrs lesson",
@@ -42,7 +44,7 @@ const ACTIVITIES: Activity[] = [
     id: "bonefishing",
     name: "Bone Fishing",
     href: "https://serenityabaco.com/bone-fishing/",
-    img: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?auto=format&fit=crop&w=1200&q=80",
+    img: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?auto=format&fit=crop&q=80",
     desc: "World-class flats fishing in shallow, clear waters — a must for anglers.",
     category: "Water",
     duration: "Half day",
@@ -52,7 +54,7 @@ const ACTIVITIES: Activity[] = [
     id: "sailing",
     name: "Sailing",
     href: "https://serenityabaco.com/sailing/",
-    img: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1200&q=80",
+    img: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&q=80",
     desc: "Explore the turquoise sea on a leisurely sailing trip or private charter.",
     category: "Water",
     duration: "Half day",
@@ -62,7 +64,7 @@ const ACTIVITIES: Activity[] = [
     id: "scuba",
     name: "Scuba Diving",
     href: "https://serenityabaco.com/scuba-diving/",
-    img: "https://images.unsplash.com/photo-1582967788606-a171c1080cb0?auto=format&fit=crop&w=1200&q=80",
+    img: "https://images.unsplash.com/photo-1582967788606-a171c1080cb0?auto=format&fit=crop&q=80",
     desc: "Discover vibrant reefs and abundant marine life with guided dives.",
     category: "Water",
     duration: "Half day",
@@ -72,17 +74,17 @@ const ACTIVITIES: Activity[] = [
     id: "caving",
     name: "Caving",
     href: "https://serenityabaco.com/caving/",
-    img: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1200&q=80",
+    img: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&q=80",
     desc: "Explore limestone caves and learn about Abaco's unique geology.",
     category: "Adventure",
     duration: "2–4 hrs",
     level: "Beginner",
   },
   {
-    id: "snorkelling",
-    name: "Snorkelling",
+    id: "snorkeling",
+    name: "Snorkeling",
     href: "https://serenityabaco.com/snorkelling/",
-    img: "https://images.unsplash.com/photo-1583212292454-1fe6229603b7?auto=format&fit=crop&w=1200&q=80",
+    img: "https://images.unsplash.com/photo-1583212292454-1fe6229603b7?auto=format&fit=crop&q=80",
     desc: "Snorkel shallow reefs teeming with tropical fish and corals.",
     category: "Water",
     duration: "2 hrs",
@@ -92,7 +94,7 @@ const ACTIVITIES: Activity[] = [
     id: "hobiecats",
     name: "Hobie Cats",
     href: "https://serenityabaco.com/hobie-cats/",
-    img: "https://images.unsplash.com/photo-1502780402662-acc01917424e?auto=format&fit=crop&w=1200&q=80",
+    img: "https://images.unsplash.com/photo-1502780402662-acc01917424e?auto=format&fit=crop&q=80",
     desc: "Small, fun catamarans perfect for sailing close to shore.",
     category: "Water",
     duration: "1–2 hrs",
@@ -102,7 +104,7 @@ const ACTIVITIES: Activity[] = [
     id: "deepsea",
     name: "Deep-sea Fishing",
     href: "https://serenityabaco.com/deep-sea-fishing/",
-    img: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=1200&q=80",
+    img: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&q=80",
     desc: "Head offshore for big-game fishing and memorable catches.",
     category: "Water",
     duration: "Full day",
@@ -112,7 +114,7 @@ const ACTIVITIES: Activity[] = [
     id: "atv",
     name: "ATVing",
     href: "https://serenityabaco.com/activity-atv/",
-    img: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1200&q=80",
+    img: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&q=80",
     desc: "Thrilling off-road adventures across scenic trails.",
     category: "Adventure",
     duration: "2 hrs",
@@ -122,7 +124,7 @@ const ACTIVITIES: Activity[] = [
     id: "boating",
     name: "Boating",
     href: "https://serenityabaco.com/boating/",
-    img: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?auto=format&fit=crop&w=1200&q=80",
+    img: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?auto=format&fit=crop&q=80",
     desc: "Boat charters and island-hopping to explore nearby cays.",
     category: "Water",
     duration: "Half day",
@@ -132,7 +134,7 @@ const ACTIVITIES: Activity[] = [
     id: "jet-ski",
     name: "Jet Ski",
     href: "https://serenityabaco.com/jet-ski/",
-    img: "https://images.unsplash.com/photo-1530549387789-4c1017266635?auto=format&fit=crop&w=1200&q=80",
+    img: "https://images.unsplash.com/photo-1530549387789-4c1017266635?auto=format&fit=crop&q=80",
     desc: "High-speed fun on the water — perfect for adrenaline seekers.",
     category: "Adventure",
     duration: "1 hr",
@@ -142,7 +144,7 @@ const ACTIVITIES: Activity[] = [
     id: "nature-tours",
     name: "Nature Tours",
     href: "https://serenityabaco.com/abaco_national_park",
-    img: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1200&q=80",
+    img: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&q=80",
     desc: "Guided nature tours to learn about local flora and fauna.",
     category: "Nature",
     duration: "2–3 hrs",
@@ -152,7 +154,7 @@ const ACTIVITIES: Activity[] = [
     id: "blue-holes",
     name: "Blue Holes Of Abaco",
     href: "https://serenityabaco.com/blue-holes-of-abaco/",
-    img: "https://images.unsplash.com/photo-1439066615861-d1af74d74000?auto=format&fit=crop&w=1200&q=80",
+    img: "https://images.unsplash.com/photo-1439066615861-d1af74d74000?auto=format&fit=crop&q=80",
     desc: "Unique sinkhole formations — great for exploration and photos.",
     category: "Nature",
     duration: "Half day",
@@ -162,7 +164,7 @@ const ACTIVITIES: Activity[] = [
     id: "horseback",
     name: "Horseback Riding",
     href: "https://serenityabaco.com/horseback/",
-    img: "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?auto=format&fit=crop&w=1200&q=80",
+    img: "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?auto=format&fit=crop&q=80",
     desc: "Scenic horseback rides along secluded beaches.",
     category: "Nature",
     duration: "1–2 hrs",
@@ -218,6 +220,7 @@ const ActivitiesSection: React.FC = () => {
           {filtered.map((act, i) => {
             const cardOpacity = Math.max(0.7, 1 - (scrollY - 800) / 2000);
             const cardBlur = Math.min(8, Math.max(0, (scrollY - 1200) / 100));
+            const srcSet = act.img ? buildUnsplashSrcSet(act.img) : undefined;
             return (
             <article
               key={act.id}
@@ -229,12 +232,14 @@ const ActivitiesSection: React.FC = () => {
                 WebkitBackdropFilter: `blur(${16 + cardBlur}px)`,
               }}
             >
-              <div className="h-40 w-full overflow-hidden bg-gray-100 flex items-center justify-center">
-                <img
+              <div className="w-full bg-gray-100">
+                <ImageWithBlur
                   src={act.img ?? "/placeholder.svg"}
                   alt={act.name}
+                  srcSet={srcSet}
+                  sizes={defaultSizes}
                   className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  loading="lazy"
+                  containerClassName="aspect-[4/3]"
                 />
               </div>
 
@@ -281,9 +286,11 @@ const ActivitiesSection: React.FC = () => {
               </DialogHeader>
               <img
                 src={active.img ?? "/placeholder.svg"}
-                alt={active.name}
+                alt=""
+                aria-hidden="true"
                 className="w-full h-56 object-cover rounded-md"
                 loading="eager"
+                decoding="async"
               />
               <div className="text-sm text-gray-600 space-x-3">
                 {active.duration && <span>Duration: {active.duration}</span>}

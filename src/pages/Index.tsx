@@ -1,20 +1,20 @@
 "use client";
 
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import HeaderNav from "@/components/HeaderNav";
 import HeroSection from "@/components/HeroSection";
 import WhyLoveStrip from "@/components/WhyLoveStrip";
 import ResortIntro from "@/components/ResortIntro";
-import AboutSection from "@/components/AboutSection";
-import AbacoDevelopers from "@/components/AbacoDevelopers";
-import AmenitiesSection from "@/components/AmenitiesSection";
-import ClubhouseSection from "@/components/ClubhouseSection";
-import SpaSection from "@/components/SpaSection";
-import BeachfrontSection from "@/components/BeachfrontSection";
-import ActivitiesSection from "@/components/ActivitiesSection";
-import PhotosSection from "@/components/PhotosSection";
-import PropertiesSection from "@/components/PropertiesSection";
-import ContactSection from "@/components/ContactSection";
+const AboutSection = lazy(() => import("@/components/AboutSection"));
+const AbacoDevelopers = lazy(() => import("@/components/AbacoDevelopers"));
+const AmenitiesSection = lazy(() => import("@/components/AmenitiesSection"));
+const ClubhouseSection = lazy(() => import("@/components/ClubhouseSection"));
+const SpaSection = lazy(() => import("@/components/SpaSection"));
+const BeachfrontSection = lazy(() => import("@/components/BeachfrontSection"));
+const ActivitiesSection = lazy(() => import("@/components/ActivitiesSection"));
+const PhotosSection = lazy(() => import("@/components/PhotosSection"));
+const PropertiesSection = lazy(() => import("@/components/PropertiesSection"));
+const ContactSection = lazy(() => import("@/components/ContactSection"));
 import SiteFooter from "@/components/SiteFooter";
 import SkipToContent from "@/components/SkipToContent";
 import ScrollToTop from "@/components/ScrollToTop";
@@ -23,6 +23,8 @@ import VapiWidget from "@/components/VapiWidget";
 import TestAssistantPanel from "@/components/TestAssistantPanel";
 import { VapiProvider } from "@/components/vapi/VapiProvider";
 import { ENV } from "@/environment";
+import SectionLoader from "@/components/SectionLoader";
+import ErrorBoundary from "@/components/ErrorBoundary";
 
 const Index = () => {
   React.useEffect(() => {
@@ -43,22 +45,54 @@ const Index = () => {
       <div className="min-h-screen bg-background text-foreground">
         <SkipToContent />
         <HeaderNav />
-        <main id="main-content">
-          <HeroSection />
-          <WhyLoveStrip />
-          <TestAssistantPanel />
-          <ResortIntro />
-          <AboutSection />
-          <AbacoDevelopers />
-          <AmenitiesSection />
-          <ClubhouseSection />
-          <SpaSection />
-          <BeachfrontSection />
-          <ActivitiesSection />
-          <PhotosSection />
-          <PropertiesSection />
-          <ContactSection />
-        </main>
+        <ErrorBoundary>
+          <main id="main-content">
+            <HeroSection />
+            <WhyLoveStrip />
+            <TestAssistantPanel />
+            <ResortIntro />
+
+            <Suspense fallback={<SectionLoader />}>
+              <AboutSection />
+            </Suspense>
+
+            <Suspense fallback={<SectionLoader />}>
+              <AbacoDevelopers />
+            </Suspense>
+
+            <Suspense fallback={<SectionLoader />}>
+              <AmenitiesSection />
+            </Suspense>
+
+            <Suspense fallback={<SectionLoader />}>
+              <ClubhouseSection />
+            </Suspense>
+
+            <Suspense fallback={<SectionLoader />}>
+              <SpaSection />
+            </Suspense>
+
+            <Suspense fallback={<SectionLoader />}>
+              <BeachfrontSection />
+            </Suspense>
+
+            <Suspense fallback={<SectionLoader />}>
+              <ActivitiesSection />
+            </Suspense>
+
+            <Suspense fallback={<SectionLoader />}>
+              <PhotosSection />
+            </Suspense>
+
+            <Suspense fallback={<SectionLoader />}>
+              <PropertiesSection />
+            </Suspense>
+
+            <Suspense fallback={<SectionLoader />}>
+              <ContactSection />
+            </Suspense>
+          </main>
+        </ErrorBoundary>
         <SiteFooter />
         <ScrollToTop />
         <StickyMobileCTA />

@@ -14,34 +14,47 @@ const BG_IMAGES = [
 const HeroSection: React.FC = () => {
   const [active, setActive] = React.useState(0);
   const [offset, setOffset] = React.useState(0);
+  const [reduced, setReduced] = React.useState(false);
 
-  // Crossfade background images
   React.useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const listener = () => setReduced(mq.matches);
+    listener();
+    mq.addEventListener?.("change", listener);
+    return () => mq.removeEventListener?.("change", listener);
+  }, []);
+
+  // Crossfade background images (disabled if reduced motion)
+  React.useEffect(() => {
+    if (reduced) return;
     const id = setInterval(() => {
       setActive((i) => (i + 1) % BG_IMAGES.length);
     }, 8000);
     return () => clearInterval(id);
-  }, []);
+  }, [reduced]);
 
-  // Parallax offset
+  // Parallax offset (disabled if reduced motion)
   React.useEffect(() => {
+    if (reduced) return;
     const onScroll = () => setOffset(window.scrollY * 0.15);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [reduced]);
 
   return (
     <header id="hero" className="relative h-[88vh] min-h-[560px] w-full overflow-hidden">
-      <div className="absolute inset-0">
+      <div className="absolute inset-0" aria-hidden="true">
         {BG_IMAGES.map((src, i) => (
           <img
             key={src}
             src={src}
-            alt="Serenity Beach header background"
-            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-[1400ms] ${i === active ? "opacity-100" : "opacity-0"}`}
-            style={{ transform: `translateY(${offset * (i === active ? 0.25 : 0.2)}px)` }}
+            alt=""
+            aria-hidden="true"
+            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-[1400ms] ${i === active || reduced ? "opacity-100" : "opacity-0"}`}
+            style={{ transform: `translateY(${reduced ? 0 : offset * (i === active ? 0.25 : 0.2)}px)` }}
             loading={i === 0 ? "eager" : "lazy"}
+            decoding={i === 0 ? "sync" : "async"}
           />
         ))}
       </div>
