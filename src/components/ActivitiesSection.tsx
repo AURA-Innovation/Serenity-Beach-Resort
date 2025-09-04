@@ -17,77 +17,77 @@ const ACTIVITIES: Activity[] = [
     id: "kayaking",
     name: "Kayaking",
     href: "https://serenityabaco.com/night-kayaking/",
-    img: "/placeholder.svg",
+    img: "https://serenityabaco.com/wp-content/uploads/2022/09/360.400-1024x658.jpg",
     desc: "Glide across calm waters and discover hidden coves and marine life.",
   },
   {
     id: "kiteboarding",
     name: "Kiteboarding",
     href: "https://serenityabaco.com/kiteboarding/",
-    img: "/placeholder.svg",
+    img: "https://serenityabaco.com/wp-content/uploads/2023/01/Bahamas-Clubhouse-.png",
     desc: "Ride the wind along Abaco’s pristine coastlines — for riders of all levels.",
   },
   {
     id: "bonefishing",
     name: "Bone Fishing",
     href: "https://serenityabaco.com/bone-fishing/",
-    img: "/placeholder.svg",
+    img: "https://serenityabaco.com/wp-content/uploads/2022/05/IMG_5229.png",
     desc: "World-class flats fishing in shallow, clear waters — a must for anglers.",
   },
   {
     id: "sailing",
     name: "Sailing",
     href: "https://serenityabaco.com/sailing/",
-    img: "/placeholder.svg",
+    img: "https://serenityabaco.com/wp-content/uploads/2022/05/IMG_5230.png",
     desc: "Explore the turquoise sea on a leisurely sailing trip or private charter.",
   },
   {
     id: "scuba",
     name: "Scuba Diving",
     href: "https://serenityabaco.com/scuba-diving/",
-    img: "/placeholder.svg",
+    img: "https://serenityabaco.com/wp-content/uploads/2022/05/IMG_5231.png",
     desc: "Discover vibrant reefs and abundant marine life with guided dives.",
   },
   {
     id: "caving",
     name: "Caving",
     href: "https://serenityabaco.com/caving/",
-    img: "/placeholder.svg",
+    img: "https://serenityabaco.com/wp-content/uploads/2022/08/About-Us-Company-Info.jpeg",
     desc: "Explore limestone caves and learn about Abaco’s unique geology.",
   },
   {
     id: "snorkelling",
     name: "Snorkelling",
     href: "https://serenityabaco.com/snorkelling/",
-    img: "/placeholder.svg",
+    img: "https://serenityabaco.com/wp-content/uploads/2022/09/360.400-1024x658.jpg",
     desc: "Snorkel shallow reefs teeming with tropical fish and corals.",
   },
   {
     id: "hobiecats",
     name: "Hobie Cats",
     href: "https://serenityabaco.com/hobie-cats/",
-    img: "/placeholder.svg",
+    img: "https://serenityabaco.com/wp-content/uploads/2022/09/Bahamas-Clubhouse-.png",
     desc: "Small, fun catamarans perfect for sailing close to shore.",
   },
   {
     id: "deepsea",
     name: "Deep-sea Fishing",
     href: "https://serenityabaco.com/deep-sea-fishing/",
-    img: "/placeholder.svg",
+    img: "https://serenityabaco.com/wp-content/uploads/2022/05/IMG_5237.png",
     desc: "Head offshore for big-game fishing and memorable catches.",
   },
   {
     id: "atv",
     name: "ATVing",
     href: "https://serenityabaco.com/activity-atv/",
-    img: "/placeholder.svg",
+    img: "https://serenityabaco.com/wp-content/uploads/2022/05/IMG_5238.png",
     desc: "Thrilling off-road adventures across scenic trails.",
   },
   {
     id: "boating",
     name: "Boating",
     href: "https://serenityabaco.com/boating/",
-    img: "/placeholder.svg",
+    img: "https://serenityabaco.com/wp-content/uploads/2022/08/Homepage_Properties_560x570-1.jpg",
     desc: "Boat charters and island-hopping to explore nearby cays.",
   },
   {
@@ -101,7 +101,7 @@ const ACTIVITIES: Activity[] = [
     id: "nature-tours",
     name: "Nature Tours",
     href: "https://serenityabaco.com/abaco_national_park",
-    img: "/placeholder.svg",
+    img: "https://serenityabaco.com/wp-content/uploads/2022/08/About-Us-Company-Info.jpeg",
     desc: "Guided nature tours to learn about local flora and fauna.",
   },
   {
@@ -115,7 +115,7 @@ const ACTIVITIES: Activity[] = [
     id: "horseback",
     name: "Horseback Riding",
     href: "https://serenityabaco.com/horseback/",
-    img: "/placeholder.svg",
+    img: "https://serenityabaco.com/wp-content/uploads/2022/08/About-Us-Company-Info.jpeg",
     desc: "Scenic horseback rides along secluded beaches.",
   },
 ];
@@ -146,7 +146,7 @@ const ActivitiesSection: React.FC = () => {
             >
               <div className="h-40 w-full overflow-hidden rounded-md bg-gray-100 flex items-center justify-center">
                 <img
-                  src={act.img}
+                  src={act.img ?? "/placeholder.svg"}
                   alt={act.name}
                   className="h-full w-full object-cover group-hover:scale-105 transition-transform"
                   loading="lazy"
@@ -158,7 +158,12 @@ const ActivitiesSection: React.FC = () => {
 
               <div className="mt-4">
                 <Button asChild size="sm" variant="ghost" className="justify-start px-0">
-                  <a href={act.href ?? "#"} target="_blank" rel="noreferrer" className="text-[#007bff] hover:underline">
+                  <a
+                    href={act.href ?? "#"}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-[#007bff] hover:underline"
+                  >
                     Learn more
                   </a>
                 </Button>
