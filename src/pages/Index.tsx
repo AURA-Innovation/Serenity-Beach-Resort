@@ -25,8 +25,12 @@ import { VapiProvider } from "@/components/vapi/VapiProvider";
 import { ENV } from "@/environment";
 import SectionLoader from "@/components/SectionLoader";
 import ErrorBoundary from "@/components/ErrorBoundary";
+import BookingModal from "@/components/BookingModal";
+import { BOOKING_URL } from "@/config/booking";
 
 const Index = () => {
+  const [bookingOpen, setBookingOpen] = React.useState(false);
+
   React.useEffect(() => {
     document.title = "Serenity Beach Resort – Private Caribbean Escape in Abaco, Bahamas";
     const description =
@@ -38,6 +42,45 @@ const Index = () => {
       document.head.appendChild(meta);
     }
     meta.content = description;
+  }, []);
+
+  // Intercept clicks on booking links and open BookingModal instead of leaving the app
+  React.useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (!target) return;
+      const anchor = target.closest("a") as HTMLAnchorElement | null;
+      if (!anchor) return;
+
+      const href = anchor.getAttribute("href") || "";
+      const text = (anchor.textContent || "").toLowerCase();
+
+      const isBookingHref =
+        href === "#book" ||
+        href === "#booking" ||
+        href === "/book" ||
+        href.startsWith(BOOKING_URL) ||
+        anchor.dataset.booking === "true";
+
+      const looksLikeBookingText = text.includes("book") && (text.includes("stay") || text.includes("now"));
+
+      if (isBookingHref || looksLikeBookingText) {
+        e.preventDefault();
+        setBookingOpen(true);
+      }
+    };
+
+    document.addEventListener("click", handler, { passive: false, capture: true });
+    return () => document.removeEventListener("click", handler, { capture: true } as any);
+  }, []);
+
+  // Also support deep-linking via hash
+  React.useEffect(() => {
+    if (location.hash === "#book" || location.hash === "#booking") {
+      setBookingOpen(true);
+      // optional: clean up the hash to avoid repeated triggers on reload
+      history.replaceState(null, "", location.pathname + location.search);
+    }
   }, []);
 
   return (
@@ -97,6 +140,8 @@ const Index = () => {
         <ScrollToTop />
         <StickyMobileCTA />
         <VapiWidget />
+
+        <BookingModal open={bookingOpen} onOpenChange={setBookingOpen} />
       </div>
     </VapiProvider>
   );
