@@ -24,7 +24,7 @@ const ACTIVITIES: Activity[] = [
     id: "kiteboarding",
     name: "Kiteboarding",
     href: "https://serenityabaco.com/kiteboarding/",
-    img: "https://serenityabaco.com/wp-content/uploads/2023/01/Bahamas-Clubhouse-.png",
+    img: "https://images.unsplash.com/photo-1504274066651-8d31a536b11a?auto=format&fit=crop&w=1200&q=80",
     desc: "Ride the wind along Abaco’s pristine coastlines — for riders of all levels.",
   },
   {
@@ -38,14 +38,14 @@ const ACTIVITIES: Activity[] = [
     id: "sailing",
     name: "Sailing",
     href: "https://serenityabaco.com/sailing/",
-    img: "https://serenityabaco.com/wp-content/uploads/2022/05/IMG_5230.png",
+    img: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1200&q=80",
     desc: "Explore the turquoise sea on a leisurely sailing trip or private charter.",
   },
   {
     id: "scuba",
     name: "Scuba Diving",
     href: "https://serenityabaco.com/scuba-diving/",
-    img: "https://serenityabaco.com/wp-content/uploads/2022/05/IMG_5231.png",
+    img: "https://images.unsplash.com/photo-1508610048659-a06a9f2a0c0e?auto=format&fit=crop&w=1200&q=80",
     desc: "Discover vibrant reefs and abundant marine life with guided dives.",
   },
   {
@@ -59,14 +59,14 @@ const ACTIVITIES: Activity[] = [
     id: "snorkelling",
     name: "Snorkelling",
     href: "https://serenityabaco.com/snorkelling/",
-    img: "https://serenityabaco.com/wp-content/uploads/2022/09/360.400-1024x658.jpg",
+    img: "https://images.unsplash.com/photo-1508675801627-066ac4346a14?auto=format&fit=crop&w=1200&q=80",
     desc: "Snorkel shallow reefs teeming with tropical fish and corals.",
   },
   {
     id: "hobiecats",
     name: "Hobie Cats",
     href: "https://serenityabaco.com/hobie-cats/",
-    img: "https://serenityabaco.com/wp-content/uploads/2022/09/Bahamas-Clubhouse-.png",
+    img: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80",
     desc: "Small, fun catamarans perfect for sailing close to shore.",
   },
   {
@@ -80,7 +80,7 @@ const ACTIVITIES: Activity[] = [
     id: "atv",
     name: "ATVing",
     href: "https://serenityabaco.com/activity-atv/",
-    img: "https://serenityabaco.com/wp-content/uploads/2022/05/IMG_5238.png",
+    img: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80",
     desc: "Thrilling off-road adventures across scenic trails.",
   },
   {
@@ -94,8 +94,9 @@ const ACTIVITIES: Activity[] = [
     id: "jet-ski",
     name: "Jet Ski",
     href: "https://serenityabaco.com/jet-ski/",
-    img: "/placeholder.svg",
-    desc: "Powerful fun on the waves for adrenaline-seekers.",
+    // Curated Jet Ski image chosen for high energy, composition and relevance:
+    img: "https://images.unsplash.com/photo-1499346030926-9a72daac6c63?auto=format&fit=crop&w=1400&q=80",
+    desc: "High-speed fun on the water — perfect for adrenaline seekers.",
   },
   {
     id: "nature-tours",
@@ -108,14 +109,14 @@ const ACTIVITIES: Activity[] = [
     id: "blue-holes",
     name: "Blue Holes Of Abaco",
     href: "https://serenityabaco.com/blue-holes-of-abaco/",
-    img: "/placeholder.svg",
+    img: "https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format&fit=crop&w=1200&q=80",
     desc: "Unique sinkhole formations — great for exploration and photos.",
   },
   {
     id: "horseback",
     name: "Horseback Riding",
     href: "https://serenityabaco.com/horseback/",
-    img: "https://serenityabaco.com/wp-content/uploads/2022/08/About-Us-Company-Info.jpeg",
+    img: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1200&q=80",
     desc: "Scenic horseback rides along secluded beaches.",
   },
 ];
