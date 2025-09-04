@@ -197,7 +197,7 @@ const ActivitiesSection: React.FC = () => {
             <Button
               key={f}
               variant={filter === f ? "default" : "outline"}
-              className={filter === f ? "bg-[#007bff] hover:bg-[#0056b3]" : ""}
+              className={`${filter === f ? "bg-[#007bff] hover:bg-[#0056b3]" : ""} btn-lux`}
               onClick={() => setFilter(f)}
               size="sm"
             >
@@ -210,13 +210,13 @@ const ActivitiesSection: React.FC = () => {
           {filtered.map((act) => (
             <article
               key={act.id}
-              className="group rounded-lg border bg-white shadow-sm flex flex-col overflow-hidden"
+              className="group rounded-xl border bg-white/80 backdrop-blur card-lift shadow-sm flex flex-col overflow-hidden"
             >
               <div className="h-40 w-full overflow-hidden bg-gray-100 flex items-center justify-center">
                 <img
                   src={act.img ?? "/placeholder.svg"}
                   alt={act.name}
-                  className="h-full w-full object-cover group-hover:scale-105 transition-transform"
+                  className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
                   loading="lazy"
                 />
               </div>
@@ -234,14 +234,14 @@ const ActivitiesSection: React.FC = () => {
                 </div>
 
                 <div className="mt-4 flex gap-2">
-                  <Button size="sm" variant="outline" asChild>
+                  <Button size="sm" variant="outline" asChild className="btn-lux">
                     <a href={act.href ?? "#"} target="_blank" rel="noreferrer">
                       Learn more
                     </a>
                   </Button>
                   <Button
                     size="sm"
-                    className="bg-[#007bff] hover:bg-[#0056b3]"
+                    className="bg-[#007bff] hover:bg-[#0056b3] btn-lux"
                     onClick={() => setActive(act)}
                   >
                     Plan this
@@ -273,13 +273,13 @@ const ActivitiesSection: React.FC = () => {
               </div>
               <div className="flex gap-2 justify-end">
                 {active.href && (
-                  <Button asChild variant="outline">
+                  <Button asChild variant="outline" className="btn-lux">
                     <a href={active.href} target="_blank" rel="noreferrer">
                       View details
                     </a>
                   </Button>
                 )}
-                <Button asChild className="bg-[#007bff] hover:bg-[#0056b3]">
+                <Button asChild className="bg-[#007bff] hover:bg-[#0056b3] btn-lux">
                   <a href="#contact">Plan this activity</a>
                 </Button>
               </div>

@@ -82,11 +82,72 @@
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, Noto Sans, "Apple Color Emoji", "Segoe UI Emoji";
+    line-height: 1.65;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Playfair Display', ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+    letter-spacing: 0.1px;
   }
 
   html {
     scroll-behavior: smooth;
-    /* Make anchored sections fully visible below sticky header */
     scroll-padding-top: 80px;
   }
+}
+
+/* Nav underline hover effect */
+.nav-underline {
+  position: relative;
+}
+.nav-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(0,123,255,0) 0%, rgba(0,123,255,0.8) 50%, rgba(0,123,255,0) 100%);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 220ms ease;
+}
+.nav-underline:hover::after {
+  transform: scaleX(1);
+}
+
+/* Luxury button subtle lift */
+.btn-lux {
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+.btn-lux:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px -10px rgba(0, 123, 255, 0.6);
+}
+
+/* Hero animated wave layer */
+.hero-wave-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(160% 70% at 50% 120%, rgba(0,123,255,0.16), transparent 60%),
+    radial-gradient(120% 55% at 10% 115%, rgba(255,255,255,0.08), transparent 50%),
+    radial-gradient(120% 55% at 90% 115%, rgba(255,255,255,0.08), transparent 50%);
+  animation: drift 14s ease-in-out infinite alternate;
+  mix-blend-mode: soft-light;
+}
+@keyframes drift {
+  from { transform: translateY(0px) translateX(0px); }
+  to { transform: translateY(12px) translateX(8px); }
+}
+
+/* Card micro-interactions */
+.card-lift {
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+.card-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 40px -18px rgba(2, 32, 71, 0.25);
 }

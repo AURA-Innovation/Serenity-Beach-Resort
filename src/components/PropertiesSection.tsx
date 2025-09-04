@@ -52,14 +52,14 @@ const PropertiesSection = () => {
           {PROPERTIES.map((p, idx) => (
             <div
               key={p.title}
-              className={`flex items-center gap-6 flex-wrap ${
+              className={`flex items-center gap-6 flex-wrap rounded-2xl border bg-white/70 backdrop-blur p-4 md:p-6 card-lift ${
                 idx % 2 === 1 ? "md:flex-row-reverse" : ""
               }`}
             >
               <img
                 src={p.img}
                 alt={p.alt}
-                className="w-full md:w-[48%] h-auto rounded-lg object-cover"
+                className="w-full md:w-[48%] h-auto rounded-xl object-cover shadow-sm transition-transform duration-300 hover:scale-[1.02]"
                 loading="lazy"
               />
               <div className="w-full md:w-[48%]">
@@ -70,7 +70,7 @@ const PropertiesSection = () => {
           ))}
         </div>
         <div className="mt-10 text-center">
-          <Button asChild size="lg" className="bg-[#007bff] hover:bg-[#0056b3]">
+          <Button asChild size="lg" className="bg-[#007bff] hover:bg-[#0056b3] btn-lux">
             <a href="https://serenityabaco.com/contact-us/">Inquire About Properties</a>
           </Button>
         </div>

@@ -17,10 +17,8 @@ const HeroSection: React.FC = () => {
         className="absolute inset-0 h-full w-full object-cover"
         loading="eager"
       />
-      <div
-        className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-black/40"
-        aria-hidden="true"
-      />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/35 to-black/60" aria-hidden="true" />
+      <div className="hero-wave-layer" aria-hidden="true" />
       <div className="relative z-10 mx-auto max-w-3xl px-4 py-28 text-center">
         <h1 className="text-white text-4xl sm:text-5xl md:text-6xl font-extrabold drop-shadow leading-tight">
           Create Memories – Experience Serenity
@@ -30,15 +28,14 @@ const HeroSection: React.FC = () => {
         </p>
 
         <div className="mt-8 flex items-center justify-center gap-4">
-          <Button asChild className="bg-[#007bff] hover:bg-[#0056b3]">
+          <Button asChild className="bg-[#007bff] hover:bg-[#0056b3] btn-lux">
             <a href="#activities">Discover Serenity</a>
           </Button>
-          <Button asChild variant="outline" className="border-white/50 text-white hover:bg-white/10">
+          <Button asChild variant="outline" className="border-white/50 text-white hover:bg-white/10 btn-lux">
             <a href="#properties">Explore Properties</a>
           </Button>
         </div>
 
-        {/* Prominent AI call button directly in the hero, visible on load */}
         <div className="mt-6 flex justify-center">
           <BigCallButton />
         </div>

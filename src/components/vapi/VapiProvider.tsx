@@ -71,7 +71,19 @@ export const VapiProvider: React.FC<VapiProviderProps> = ({ apiKey, assistantId,
     if (!vapiRef.current || isConnecting || isConnected) return;
     setTranscript([]);
     setIsConnecting(true);
-    vapiRef.current.start(assistantId);
+
+    // Light personalization: pass local time as a variable for greeting context
+    const localTime = new Date().toLocaleString(undefined, {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+      weekday: "short",
+    });
+
+    vapiRef.current.start(assistantId, {
+      variableValues: { localTime },
+      recordingEnabled: false,
+    } as any);
   };
 
   const endCall = () => {

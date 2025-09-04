@@ -42,9 +42,7 @@ const HeaderNav: React.FC = () => {
   };
 
   React.useEffect(() => {
-    const onScroll = () => {
-      setScrolled(window.scrollY > 10);
-    };
+    const onScroll = () => setScrolled(window.scrollY > 10);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -60,9 +58,7 @@ const HeaderNav: React.FC = () => {
         const visible = entries
           .filter((e) => e.isIntersecting)
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-        if (visible[0]?.target?.id) {
-          setActiveId(`#${visible[0].target.id}`);
-        }
+        if (visible[0]?.target?.id) setActiveId(`#${visible[0].target.id}`);
       },
       { root: null, rootMargin: "0px 0px -40% 0px", threshold: [0.25, 0.5, 0.75] }
     );
@@ -75,19 +71,18 @@ const HeaderNav: React.FC = () => {
     ? "bg-white/85 backdrop-blur supports-[backdrop-filter]:bg-white/65 shadow-sm border-b"
     : "bg-transparent";
 
-  const linkBase =
-    scrolled
-      ? "text-gray-700 hover:text-[#007bff]"
-      : "text-white/90 hover:text-white";
+  const linkBase = scrolled
+    ? "text-gray-700 hover:text-[#007bff]"
+    : "text-white/90 hover:text-white";
 
   return (
     <header className={`fixed top-0 z-50 w-full transition-colors ${headerBg}`}>
-      <div className="mx-auto max-w-[1200px] px-4 py-3 flex items-center justify-between">
+      <div className="mx-auto max-w-[1200px] px-4 py-2.5 flex items-center justify-between">
         <a href="#hero" className="flex items-center gap-2" aria-label="Go to top">
           <img
             src="https://serenityabaco.com/wp-content/uploads/2022/05/logo-1.png"
             alt="Serenity Abaco Logo"
-            className="h-9 w-auto"
+            className="h-8 w-auto"
             loading="eager"
           />
         </a>
@@ -99,17 +94,16 @@ const HeaderNav: React.FC = () => {
               <button
                 key={link.href}
                 onClick={() => handleNavClick(link.href)}
-                className={`text-sm font-medium transition-colors ${linkBase} ${isActive ? "text-[#007bff]" : ""}`}
+                className={`text-sm font-medium transition-colors nav-underline ${linkBase} ${isActive ? "text-[#007bff]" : ""}`}
               >
                 {link.label}
               </button>
             );
           })}
-          {/* Add compact nav call button */}
           <NavCallButton />
           <Button
             asChild={!isMobile}
-            className={`${scrolled ? "" : "bg-white/10 hover:bg-white/20 border-white/30 text-white"} bg-[#007bff] hover:bg-[#0056b3]`}
+            className={`${scrolled ? "" : "bg-white/10 hover:bg-white/20 border-white/30 text-white"} bg-[#007bff] hover:bg-[#0056b3] btn-lux`}
           >
             {isMobile ? (
               <a href={`tel:${PHONE}`}>Call Us</a>
@@ -123,7 +117,7 @@ const HeaderNav: React.FC = () => {
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
               <Button
-                variant={scrolled ? "outline" : "outline"}
+                variant="outline"
                 size="icon"
                 aria-label="Open menu"
                 className={scrolled ? "" : "border-white/40 text-white"}
@@ -152,10 +146,9 @@ const HeaderNav: React.FC = () => {
                     {link.label}
                   </Button>
                 ))}
-                {/* Mobile call trigger inside the sheet */}
                 <NavCallButton />
                 <Button
-                  className="mt-2 bg-[#007bff] hover:bg-[#0056b3]"
+                  className="mt-2 bg-[#007bff] hover:bg-[#0056b3] btn-lux"
                   onClick={() => handleNavClick("#contact")}
                 >
                   {isMobile ? "Call Us" : "Contact Us"}
