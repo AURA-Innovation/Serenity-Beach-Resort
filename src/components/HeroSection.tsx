@@ -68,8 +68,8 @@ const HeroSection: React.FC = () => {
           </Button>
           <Button
             asChild
-            variant="outline"
-            className="fade-up border-white/50 text-white hover:bg-white/10 btn-lux"
+            variant="ghost"
+            className="fade-up border border-white/40 bg-white/10 text-white hover:bg-white/15 backdrop-blur btn-lux"
             style={{ animationDelay: "340ms" }}
           >
             <a href="#properties">Explore Properties</a>
