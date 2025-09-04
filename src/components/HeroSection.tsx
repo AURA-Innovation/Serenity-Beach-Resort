@@ -1,40 +1,47 @@
 "use client";
 
+import React from "react";
 import { Button } from "@/components/ui/button";
 
-const HeroSection = () => {
+const HERO_IMAGE =
+  "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2000&q=80";
+
+const HeroSection: React.FC = () => {
   return (
-    <section
-      id="hero"
-      className="relative min-h-[80vh] flex items-center justify-center text-center"
-      aria-label="Create Memories | Experience Serenity"
-    >
+    <header className="relative h-[80vh] min-h-[520px] w-full">
+      {/* Background image */}
+      <img
+        src={HERO_IMAGE}
+        alt="Tropical beach at sunrise — Serenity Beach, Abaco Bahamas"
+        className="absolute inset-0 h-full w-full object-cover"
+        loading="eager"
+      />
+
+      {/* Subtle, multi-stop gradient overlay for better contrast */}
       <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage:
-            "url('https://serenityabaco.com/wp-content/uploads/2022/05/logo-1.png')",
-        }}
+        className="absolute inset-0 bg-gradient-to-b from-black/45 via-transparent to-black/30"
         aria-hidden="true"
       />
-      <div className="absolute inset-0 bg-black/50" aria-hidden="true" />
-      <div className="relative z-10 mx-auto max-w-3xl px-4">
-        <h1 className="text-white text-4xl sm:text-5xl md:text-6xl font-extrabold drop-shadow">
+
+      {/* Content */}
+      <div className="relative z-10 mx-auto max-w-3xl px-4 py-28 text-center">
+        <h1 className="text-white text-4xl sm:text-5xl md:text-6xl font-extrabold drop-shadow leading-tight">
           Create Memories | Experience Serenity
         </h1>
-        <p className="mt-4 text-white/90 text-lg sm:text-xl">
+        <p className="mt-4 text-white/85 max-w-2xl mx-auto text-base sm:text-lg">
           Your ultimate destination for a perfect beach vacation in the Bahamas.
         </p>
-        <div className="mt-8 flex items-center justify-center gap-3">
-          <Button asChild size="lg" className="bg-[#007bff] hover:bg-[#0056b3]">
-            <a href="#about">Discover Serenity</a>
+
+        <div className="mt-8 flex items-center justify-center gap-4">
+          <Button asChild className="bg-[#5661f9] hover:bg-[#3046d1]">
+            <a href="#activities">Discover Serenity</a>
           </Button>
-          <Button asChild size="lg" variant="secondary" className="bg-white text-gray-900 hover:bg-gray-100">
-            <a href="#properties">Explore Properties</a>
+          <Button asChild variant="outline">
+            <a href="#property">Explore Properties</a>
           </Button>
         </div>
       </div>
-    </section>
+    </header>
   );
 };
 
