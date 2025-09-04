@@ -21,6 +21,7 @@ import ScrollToTop from "@/components/ScrollToTop";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
 import VapiWidget from "@/components/VapiWidget";
 import TestAssistantPanel from "@/components/TestAssistantPanel";
+import { VapiProvider } from "@/components/vapi/VapiProvider";
 import { ENV } from "@/environment";
 
 const Index = () => {
@@ -38,34 +39,32 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <SkipToContent />
-      <HeaderNav />
-      <main id="main-content">
-        <HeroSection />
-        <WhyLoveStrip />
-        <TestAssistantPanel />
-        <ResortIntro />
-        <AboutSection />
-        <AbacoDevelopers />
-        <AmenitiesSection />
-        <ClubhouseSection />
-        <SpaSection />
-        <BeachfrontSection />
-        <ActivitiesSection />
-        <PhotosSection />
-        <PropertiesSection />
-        <ContactSection />
-      </main>
-      <SiteFooter />
-      <ScrollToTop />
-      <StickyMobileCTA />
-      {/* Voice widget (uses mic; browser will prompt for permission) */}
-      <VapiWidget
-        apiKey={ENV.YOUR_PUBLIC_API_KEY}
-        assistantId={ENV.YOUR_ASSISTANT_ID}
-      />
-    </div>
+    <VapiProvider apiKey={ENV.YOUR_PUBLIC_API_KEY} assistantId={ENV.YOUR_ASSISTANT_ID}>
+      <div className="min-h-screen bg-background text-foreground">
+        <SkipToContent />
+        <HeaderNav />
+        <main id="main-content">
+          <HeroSection />
+          <WhyLoveStrip />
+          <TestAssistantPanel />
+          <ResortIntro />
+          <AboutSection />
+          <AbacoDevelopers />
+          <AmenitiesSection />
+          <ClubhouseSection />
+          <SpaSection />
+          <BeachfrontSection />
+          <ActivitiesSection />
+          <PhotosSection />
+          <PropertiesSection />
+          <ContactSection />
+        </main>
+        <SiteFooter />
+        <ScrollToTop />
+        <StickyMobileCTA />
+        <VapiWidget />
+      </div>
+    </VapiProvider>
   );
 };
 

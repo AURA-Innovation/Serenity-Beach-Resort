@@ -11,6 +11,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { useIsMobile } from "@/hooks/use-mobile";
+import NavCallButton from "@/components/NavCallButton";
 
 const NAV_LINKS = [
   { label: "The Resort", href: "#resort" },
@@ -104,6 +105,8 @@ const HeaderNav: React.FC = () => {
               </button>
             );
           })}
+          {/* Add compact nav call button */}
+          <NavCallButton />
           <Button
             asChild={!isMobile}
             className={`${scrolled ? "" : "bg-white/10 hover:bg-white/20 border-white/30 text-white"} bg-[#007bff] hover:bg-[#0056b3]`}
@@ -149,6 +152,8 @@ const HeaderNav: React.FC = () => {
                     {link.label}
                   </Button>
                 ))}
+                {/* Mobile call trigger inside the sheet */}
+                <NavCallButton />
                 <Button
                   className="mt-2 bg-[#007bff] hover:bg-[#0056b3]"
                   onClick={() => handleNavClick("#contact")}

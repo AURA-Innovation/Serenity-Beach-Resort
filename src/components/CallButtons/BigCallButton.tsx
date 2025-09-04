@@ -6,16 +6,16 @@ import { Mic, PhoneOff } from "lucide-react";
 import DotPulse from "@/components/common/DotPulse";
 import { useVapi } from "@/components/vapi/VapiProvider";
 
-const VapiWidget: React.FC = () => {
+const BigCallButton: React.FC = () => {
   const { isConnected, isConnecting, isSpeaking, startCall, endCall } = useVapi();
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
+    <div className="w-full flex flex-col items-center text-center">
       {!isConnected ? (
         <Button
           onClick={startCall}
           disabled={isConnecting}
-          className={`rounded-full shadow-lg px-5 h-12 transition-colors ${
+          className={`rounded-full shadow-xl px-8 h-16 text-lg font-semibold transition-all ${
             isConnecting
               ? "bg-purple-600 hover:bg-purple-600 cursor-not-allowed opacity-95"
               : "bg-[#007bff] hover:bg-[#0056b3]"
@@ -29,16 +29,16 @@ const VapiWidget: React.FC = () => {
             </span>
           ) : (
             <span className="inline-flex items-center">
-              <Mic className="h-5 w-5 mr-2" />
+              <Mic className="h-6 w-6 mr-3" />
               Talk to Assistant
             </span>
           )}
         </Button>
       ) : (
-        <div className="flex flex-col items-stretch">
+        <div className="flex flex-col items-center">
           <Button
             disabled
-            className={`rounded-full shadow-lg px-5 h-12 justify-center ${
+            className={`rounded-full shadow-xl px-8 h-16 text-lg font-semibold ${
               isSpeaking ? "bg-emerald-600 animate-pulse" : "bg-emerald-600"
             } hover:bg-emerald-600`}
             aria-live="polite"
@@ -48,15 +48,18 @@ const VapiWidget: React.FC = () => {
           <Button
             onClick={endCall}
             variant="destructive"
-            className="mt-2 rounded-full shadow px-5 h-10 justify-center"
+            className="mt-3 rounded-full shadow px-6 h-11 text-base"
           >
-            <PhoneOff className="h-4 w-4 mr-2" />
+            <PhoneOff className="h-5 w-5 mr-2" />
             End Call
           </Button>
         </div>
       )}
+      <p className="mt-3 text-muted-foreground text-sm max-w-xl">
+        Start a live conversation with our AI assistant to plan your perfect stay.
+      </p>
     </div>
   );
 };
 
-export default VapiWidget;
+export default BigCallButton;

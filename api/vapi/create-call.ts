@@ -27,12 +27,18 @@ export default async function handler(req: any, res: any) {
       : { number: String(customerNumber) };
 
   try {
-    const call = await vapi.calls.create({
+    // Build payload as any to remain compatible with current server SDK typings.
+    const payload: any = {
       phoneNumberId,
       assistantId,
       customer: customerPayload,
-      metadata: metadata ?? {},
-    });
+    };
+
+    if (metadata && typeof metadata === "object") {
+      payload.metadata = metadata;
+    }
+
+    const call = await vapi.calls.create(payload);
     return res.status(200).json(call);
   } catch (e: any) {
     console.error("Vapi create call error:", e?.response?.data || e);

@@ -29,15 +29,26 @@ export default async function handler(req: any, res: any) {
     const created: any[] = [];
     for (const p of prospects) {
       const customer = typeof p === "string" ? { number: p } : p;
-      const call = await vapi.calls.create({
+
+      // Build payload as any to avoid TS mismatch on metadata.
+      const payload: any = {
         assistantId,
         phoneNumberId,
         customer,
-        metadata: { campaign: "bulk_campaign", ...(metadata ?? {}) },
-      });
+      };
+
+      // Keep your campaign tag; attach metadata at runtime.
+      const baseMeta = { campaign: "bulk_campaign" as const };
+      if (metadata && typeof metadata === "object") {
+        payload.metadata = { ...baseMeta, ...metadata };
+      } else {
+        payload.metadata = baseMeta;
+      }
+
+      const call = await vapi.calls.create(payload);
       created.push(call);
+
       if (rateLimitMs) {
-        // Optional small delay; keep minimal to avoid serverless timeouts
         // eslint-disable-next-line no-await-in-loop
         await delay(Math.min(2000, rateLimitMs));
       }

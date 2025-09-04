@@ -3,6 +3,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Umbrella, Users, Sparkles } from "lucide-react";
+import BigCallButton from "@/components/CallButtons/BigCallButton";
 
 const HERO_IMAGE =
   "https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=2000&q=80";
@@ -35,6 +36,11 @@ const HeroSection: React.FC = () => {
           <Button asChild variant="outline" className="border-white/50 text-white hover:bg-white/10">
             <a href="#properties">Explore Properties</a>
           </Button>
+        </div>
+
+        {/* Prominent AI call button directly in the hero, visible on load */}
+        <div className="mt-6 flex justify-center">
+          <BigCallButton />
         </div>
 
         <ul className="mt-6 flex flex-wrap items-center justify-center gap-4 text-white/90">
