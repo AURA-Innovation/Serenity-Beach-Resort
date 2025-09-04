@@ -32,6 +32,10 @@
   --color-sidebar-accent-foreground: hsl(var(--sidebar-accent-foreground));
   --color-sidebar-border: hsl(var(--sidebar-border));
   --color-sidebar-ring: hsl(var(--sidebar-ring));
+
+  /* Preserve v3 defaults for ring behavior (optional compatibility) */
+  --default-ring-width: 3px;
+  --default-ring-color: var(--color-blue-500);
 }
 
 /* Theme variables (kept from your previous setup) */

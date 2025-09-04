@@ -116,7 +116,7 @@ const HeaderNav: React.FC = () => {
                 href={link.href}
                 onClick={(e) => handleNavClick(link.href, e)}
                 aria-current={isActive ? "page" : undefined}
-                className={`text-sm font-medium transition-colors nav-underline ${linkBase} ${isActive ? "text-[#007bff]" : ""} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#007bff] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded`}
+                className={`text-sm font-medium transition-colors nav-underline ${linkBase} ${isActive ? "text-[#007bff]" : ""} focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-[#007bff] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded`}
               >
                 {link.label}
               </a>
