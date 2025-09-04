@@ -20,6 +20,7 @@ import SkipToContent from "@/components/SkipToContent";
 import ScrollToTop from "@/components/ScrollToTop";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
 import VapiWidget from "@/components/VapiWidget";
+import TestAssistantPanel from "@/components/TestAssistantPanel";
 
 const Index = () => {
   React.useEffect(() => {
@@ -42,6 +43,7 @@ const Index = () => {
       <main id="main-content">
         <HeroSection />
         <WhyLoveStrip />
+        <TestAssistantPanel />
         <ResortIntro />
         <AboutSection />
         <AbacoDevelopers />
