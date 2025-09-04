@@ -84,7 +84,7 @@ const BeachfrontSection: React.FC = () => {
             return (
             <article
               key={p.id}
-              className="rounded-lg overflow-hidden border shadow-sm bg-gray-50 flex flex-col"
+              className="rounded-2xl overflow-hidden glass-panel card-lift-tilt hover-shimmer flex flex-col"
             >
               <div className="relative">
                 <ImageWithBlur
@@ -101,23 +101,23 @@ const BeachfrontSection: React.FC = () => {
               </div>
               <div className="p-4 flex-1 flex flex-col">
                 <h3 className="text-xl font-semibold">{p.name}</h3>
-                <div className="mt-2 text-sm text-gray-600 space-y-1">
-                  <div>
+                <div className="mt-2 text-sm text-gray-100/90 space-y-1">
+                  <div className="text-gray-800">
                     <strong>Size: </strong>
                     <span>{p.size}</span>
                   </div>
-                  <div>
+                  <div className="text-gray-800">
                     <strong>Frontage: </strong>
                     <span>{p.frontage}</span>
                   </div>
                   {p.elevation && (
-                    <div>
+                    <div className="text-gray-800">
                       <strong>Elevation: </strong>
                       <span>{p.elevation}</span>
                     </div>
                   )}
                   {p.features && (
-                    <div>
+                    <div className="text-gray-800">
                       <strong>Features: </strong>
                       <span>{p.features}</span>
                     </div>

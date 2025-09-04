@@ -12,7 +12,7 @@ const AmenityCard = ({
   desc: string;
   href: string;
 }) => (
-  <Card className="h-full">
+  <Card className="h-full glass-panel card-lift-tilt hover-shimmer">
     <CardHeader className="items-center">
       <img
         src="https://serenityabaco.com/wp-content/uploads/2022/05/logo-1.png"

@@ -87,7 +87,7 @@ const AbacoDevelopers: React.FC = () => {
             </div>
           </div>
 
-          <div className="rounded-lg overflow-hidden shadow-lg bg-gray-50">
+          <div className="rounded-2xl overflow-hidden glass-panel">
             <ImageWithBlur
               src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80"
               alt="Luxury beachfront development with modern architecture and pristine coastline"

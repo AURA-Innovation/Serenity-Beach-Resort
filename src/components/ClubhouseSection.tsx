@@ -79,7 +79,7 @@ const ClubhouseSection: React.FC = () => {
 
           <div className="space-y-4">
             {CLUBHOUSE_IMAGES.map((img) => (
-              <div key={img.src} className="rounded-lg overflow-hidden shadow-lg bg-gray-50">
+              <div key={img.src} className="rounded-2xl overflow-hidden glass-panel hover-shimmer">
                 <ImageWithBlur
                   src={img.src}
                   alt={img.alt}

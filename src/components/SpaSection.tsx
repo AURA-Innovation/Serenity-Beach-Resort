@@ -40,9 +40,9 @@ const SpaSection: React.FC = () => {
             <h3 className="text-xl font-semibold mt-4 mb-2">What We Offer</h3>
             <ul className="grid gap-3 sm:grid-cols-2 mt-3">
               {TREATMENTS.map((t) => (
-                <li key={t.name} className="rounded-md border bg-white p-4">
+                <li key={t.name} className="rounded-lg glass-panel p-4">
                   <strong className="block text-gray-900">{t.name}</strong>
-                  <span className="text-sm text-gray-600">{t.desc}</span>
+                  <span className="text-sm text-gray-700">{t.desc}</span>
                 </li>
               ))}
             </ul>
@@ -67,7 +67,7 @@ const SpaSection: React.FC = () => {
             </div>
           </div>
 
-          <div className="rounded-lg overflow-hidden shadow-lg bg-white">
+          <div className="rounded-2xl overflow-hidden glass-panel">
             <ImageWithBlur
               src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&q=80"
               alt="Luxury spa treatment room with ocean views and serene tropical atmosphere"

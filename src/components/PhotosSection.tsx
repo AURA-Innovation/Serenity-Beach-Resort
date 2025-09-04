@@ -67,7 +67,7 @@ const PhotosSection: React.FC = () => {
           {PHOTOS.map((p, i) => (
             <button
               key={i}
-              className="group overflow-hidden rounded-lg bg-white shadow-sm border focus:outline-none focus-visible:ring-2 focus-visible:ring-[#007bff]"
+              className="group overflow-hidden rounded-xl glass-panel hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[#007bff]"
               onClick={() => openAt(i)}
               aria-label={`Open photo: ${p.alt}`}
             >

@@ -38,7 +38,6 @@ const PROPERTIES: Category[] = [
     label: "Vista",
     description:
       "7 vista properties at 60–70 feet elevation with 360° views of the ocean to the East and the Sea of Abaco to the West. Stunning sunrise and sunset vistas.",
-    // Replaced with uploaded local image
     img: "/images/vista-main.jpg",
   },
 ];
@@ -117,7 +116,7 @@ const PropertiesSection: React.FC = () => {
                           {categoryItems.map((item) => (
                             <li
                               key={item.id}
-                              className="rounded-lg border bg-white p-4 hover:shadow-sm transition"
+                              className="rounded-xl glass-panel p-4 card-lift hover:shadow-lg transition"
                             >
                               <div className="flex items-start justify-between gap-3">
                                 <div>

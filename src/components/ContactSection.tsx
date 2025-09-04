@@ -59,7 +59,7 @@ const ContactSection = () => {
 
         <div className="mt-8 grid gap-8 md:grid-cols-2 items-start">
           <div className="space-y-6">
-            <div className="rounded-lg border bg-white p-6 shadow-sm">
+            <div className="rounded-2xl glass-panel p-6 hover-shimmer">
               <h3 className="text-xl font-semibold mb-3">{CONTACT.businessName}</h3>
 
               <div className="text-gray-700 mb-3">
@@ -107,7 +107,7 @@ const ContactSection = () => {
               </div>
             </div>
 
-            <div className="rounded-lg overflow-hidden border shadow-sm">
+            <div className="rounded-2xl overflow-hidden glass-panel">
               <iframe
                 width="100%"
                 height="240"
@@ -121,7 +121,7 @@ const ContactSection = () => {
             </div>
           </div>
 
-          <div className="rounded-2xl border border-white/30 bg-white/60 backdrop-blur-md p-6 shadow-lg">
+          <div className="rounded-2xl glass-panel p-6 shadow-lg">
             <h3 className="text-xl font-semibold mb-1">Send Us a Message</h3>
             <p className="text-sm text-gray-600 mb-4">
               We’ll respond by email or phone. For urgent inquiries, call {CONTACT.phonePretty}.
