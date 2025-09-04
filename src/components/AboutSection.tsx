@@ -1,85 +1,65 @@
 "use client";
 
+import React from "react";
 import { useInView } from "@/hooks/useInView";
 
-const CTALink = ({
-  title,
-  desc,
-  href,
-}: {
-  title: string;
-  desc: string;
-  href: string;
-}) => (
-  <a
-    href={href}
-    className="flex-1 min-w-[240px] p-4 rounded-md border bg-white hover:bg-gray-50 transition-colors"
-  >
-    <strong className="block text-lg text-gray-900">{title}</strong>
-    <span className="text-gray-600">{desc}</span>
-  </a>
-);
-
-const AboutSection = () => {
-  const { ref, inView } = useInView<HTMLDivElement>();
+const AboutSection: React.FC = () => {
+  // Re-animate on every re-entry; instant enter, smart exit (handled by hook defaults)
+  const { ref, inView } = useInView<HTMLElement>({
+    threshold: 0.15,
+    rootMargin: "0px 0px -30% 0px",
+  });
 
   return (
-    <section id="about" className="bg-sand-100 py-16">
-      <div
-        ref={ref}
-        className={`mx-auto max-w-[1200px] px-4 transition-all duration-700 ${
-          inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-        }`}
-      >
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-6">
-          Serenity Beach in the Bahamas Is the Ultimate Destination for Your Perfect Beach Vacation
-        </h2>
-        <div className="space-y-4 text-gray-700 max-w-4xl mx-auto">
-          <p className="text-lg">Create Memories You’ll Remember Forever:</p>
-          <p>
-            A palm-lined beach with vibrant beach umbrellas. The crashing of the waves and the
-            chirping of the birds. A warm breeze, and the aroma of salt in the air. It’s essential
-            to hold onto those memories.
-          </p>
-          <p>
-            Serenity Beach promises personalized service, excellent amenities, and a warm Caribbean
-            welcome that’ll have you coming back for more!
-          </p>
-          <p className="italic text-gray-600">
-            Please explore our website for all the details on our packages, or call us for a free
-            consultation!
-          </p>
-        </div>
+    <section
+      id="about"
+      ref={ref}
+      className={[
+        "bg-sand-100 py-16",
+        "transition-all duration-700 will-change-transform",
+        inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2",
+      ].join(" ")}
+    >
+      <div className="mx-auto max-w-[1200px] px-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
+          <div className="space-y-4 md:space-y-6">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">About Serenity</h2>
+            <p className="text-gray-700 text-base md:text-lg leading-relaxed">
+              Discover a private sanctuary where turquoise waters meet pristine shores. Our
+              residences are crafted for effortless luxury, blending modern comfort with the
+              timeless beauty of the Abacos.
+            </p>
+            <ul className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 text-gray-800">
+              <li className="flex items-start gap-2">
+                <span className="mt-1 h-2 w-2 rounded-full bg-emerald-500" />
+                Beachfront access
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="mt-1 h-2 w-2 rounded-full bg-emerald-500" />
+                Private marina
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="mt-1 h-2 w-2 rounded-full bg-emerald-500" />
+                Concierge services
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="mt-1 h-2 w-2 rounded-full bg-emerald-500" />
+                Turn-key ownership
+              </li>
+            </ul>
+          </div>
 
-        <div className="mt-8 flex flex-wrap gap-4 justify-center">
-          <CTALink
-            title="Properties"
-            desc="Discover our list of luxury properties..."
-            href="#properties"
-          />
-          <CTALink
-            title="Book a Stay"
-            desc="Not all vacations are equally rewarding..."
-            href="#booking"
-          />
-          <CTALink
-            title="Activities"
-            desc="Our guests enjoy the activities like no other..."
-            href="#activities"
-          />
-        </div>
-
-        <div className="mt-12 max-w-4xl mx-auto space-y-4 text-gray-700">
-          <h3 className="text-2xl font-semibold">It’s Time to Find Your Serenity:</h3>
-          <p>
-            Serenity Beach Resort is a tranquil escape located on Abaco in the Bahamas. With modern
-            comforts and Caribbean hospitality, we offer you a chance to find your island paradise.
-          </p>
-          <p>
-            We offer luxurious guest rooms with all the amenities, an oceanfront pool, garden area,
-            and more — perfect for leisure travelers and those looking for a lifetime destination.
-          </p>
-          <p className="italic text-gray-600">Start planning your dream vacation today!</p>
+          <div className="relative">
+            <div className="aspect-[4/3] w-full overflow-hidden rounded-xl shadow-lg ring-1 ring-black/5">
+              <img
+                src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=1600&auto=format&fit=crop"
+                alt="Serenity Abaco coastline"
+                className="h-full w-full object-cover"
+                loading="lazy"
+              />
+            </div>
+            <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-white/20" />
+          </div>
         </div>
       </div>
     </section>
