@@ -3,8 +3,7 @@
 import React from "react";
 import Vapi from "@vapi-ai/web";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Mic, PhoneOff, Waves } from "lucide-react";
+import { Mic, PhoneOff } from "lucide-react";
 import { toast } from "sonner";
 
 type TranscriptItem = { role: string; text: string };
@@ -15,10 +14,23 @@ interface VapiWidgetProps {
   config?: Record<string, unknown>;
 }
 
+const DotPulse = () => (
+  <span aria-hidden="true" className="inline-flex ml-2 space-x-1">
+    {[0, 1, 2].map((i) => (
+      <span
+        key={i}
+        className="w-1.5 h-1.5 rounded-full bg-white/90 animate-bounce"
+        style={{ animationDelay: `${i * 0.2}s` }}
+      />
+    ))}
+  </span>
+);
+
 const VapiWidget: React.FC<VapiWidgetProps> = ({ apiKey, assistantId }) => {
   const [vapi, setVapi] = React.useState<Vapi | null>(null);
   const [isConnected, setIsConnected] = React.useState(false);
   const [isSpeaking, setIsSpeaking] = React.useState(false);
+  const [isConnecting, setIsConnecting] = React.useState(false);
   const [transcript, setTranscript] = React.useState<TranscriptItem[]>([]);
 
   React.useEffect(() => {
@@ -26,6 +38,7 @@ const VapiWidget: React.FC<VapiWidgetProps> = ({ apiKey, assistantId }) => {
     setVapi(v);
 
     v.on("call-start", () => {
+      setIsConnecting(false);
       setIsConnected(true);
       setIsSpeaking(false);
     });
@@ -33,6 +46,7 @@ const VapiWidget: React.FC<VapiWidgetProps> = ({ apiKey, assistantId }) => {
     v.on("call-end", () => {
       setIsConnected(false);
       setIsSpeaking(false);
+      setIsConnecting(false);
     });
 
     v.on("speech-start", () => setIsSpeaking(true));
@@ -49,6 +63,7 @@ const VapiWidget: React.FC<VapiWidgetProps> = ({ apiKey, assistantId }) => {
 
     v.on("error", (error: unknown) => {
       console.error("Vapi error:", error);
+      setIsConnecting(false);
       toast.error("Voice assistant error. Please try again.");
     });
 
@@ -60,6 +75,7 @@ const VapiWidget: React.FC<VapiWidgetProps> = ({ apiKey, assistantId }) => {
   const startCall = () => {
     if (!vapi) return;
     setTranscript([]);
+    setIsConnecting(true);
     vapi.start(assistantId);
   };
 
@@ -73,67 +89,48 @@ const VapiWidget: React.FC<VapiWidgetProps> = ({ apiKey, assistantId }) => {
       {!isConnected ? (
         <Button
           onClick={startCall}
-          className="rounded-full shadow-lg bg-[#007bff] hover:bg-[#0056b3] px-5 h-12"
+          disabled={isConnecting}
+          className={`rounded-full shadow-lg px-5 h-12 transition-colors ${
+            isConnecting
+              ? "bg-purple-600 hover:bg-purple-600 cursor-not-allowed opacity-95"
+              : "bg-[#007bff] hover:bg-[#0056b3]"
+          }`}
+          aria-live="polite"
         >
-          <Mic className="h-5 w-5 mr-2" />
-          Talk to Assistant
+          {isConnecting ? (
+            <span className="inline-flex items-center">
+              Connecting
+              <DotPulse />
+            </span>
+          ) : (
+            <span className="inline-flex items-center">
+              <Mic className="h-5 w-5 mr-2" />
+              Talk to Assistant
+            </span>
+          )}
         </Button>
       ) : (
-        <Card className="w-[340px] shadow-xl">
-          <CardHeader className="py-3">
-            <CardTitle className="flex items-center justify-between text-base">
-              <span className="flex items-center gap-2">
-                <span
-                  className={`inline-block h-2.5 w-2.5 rounded-full ${
-                    isSpeaking ? "bg-red-500 animate-pulse" : "bg-emerald-500"
-                  }`}
-                  aria-label={isSpeaking ? "Assistant speaking" : "Connected"}
-                />
-                {isSpeaking ? "Assistant Speaking…" : "Listening…"}
-              </span>
-              <Button
-                variant="destructive"
-                size="sm"
-                onClick={endCall}
-                className="h-8"
-              >
-                <PhoneOff className="h-4 w-4 mr-1" />
-                End
-              </Button>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="pt-2">
-            <div className="max-h-56 overflow-y-auto rounded-md border bg-gray-50 p-2">
-              {transcript.length === 0 ? (
-                <div className="flex items-center justify-center text-gray-500 text-sm py-6">
-                  <Waves className="h-4 w-4 mr-2" />
-                  Conversation will appear here…
-                </div>
-              ) : (
-                <div className="space-y-2">
-                  {transcript.map((msg, i) => (
-                    <div
-                      key={`${i}-${msg.role}-${msg.text.slice(0, 8)}`}
-                      className={`flex ${
-                        msg.role === "user" ? "justify-end" : "justify-start"
-                      }`}
-                    >
-                      <span
-                        className={`px-3 py-2 rounded-2xl text-sm max-w-[80%] ${
-                          msg.role === "user"
-                            ? "bg-[#007bff] text-white"
-                            : "bg-gray-800 text-white"
-                        }`}
-                      >
-                        {msg.text}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          </CardContent>
-        </Card>
+        <div className="flex flex-col items-stretch">
+          <Button
+            disabled
+            className={`rounded-full shadow-lg px-5 h-12 justify-center ${
+              isSpeaking
+                ? "bg-emerald-600 animate-pulse"
+                : "bg-emerald-600"
+            } hover:bg-emerald-600`}
+            aria-live="polite"
+          >
+            Connected!
+          </Button>
+          <Button
+            onClick={endCall}
+            variant="destructive"
+            className="mt-2 rounded-full shadow px-5 h-10 justify-center"
+          >
+            <PhoneOff className="h-4 w-4 mr-2" />
+            End Call
+          </Button>
+        </div>
       )}
     </div>
   );
