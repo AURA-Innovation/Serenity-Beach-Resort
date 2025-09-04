@@ -58,7 +58,7 @@ const ContactSection = () => {
         <div className="mt-8 grid gap-8 md:grid-cols-2 items-start">
           {/* Left: Contact Info + Map */}
           <div className="space-y-6">
-            <div className="rounded-lg border bg-white p-6 shadow-sm">
+            <div className="rounded-xl border border-white/20 bg-white/30 dark:bg-black/30 backdrop-blur-md p-6 shadow-sm">
               <h3 className="text-xl font-semibold mb-3">{CONTACT.name}</h3>
 
               <div className="text-gray-700 mb-3">
@@ -118,7 +118,7 @@ const ContactSection = () => {
               </p>
             </div>
 
-            <div className="rounded-lg overflow-hidden border shadow-sm">
+            <div className="rounded-xl overflow-hidden border border-white/10 shadow-sm">
               <img
                 src={CONTACT.mapSrc}
                 alt="Map of Serenity Beach Resort"
@@ -129,7 +129,7 @@ const ContactSection = () => {
           </div>
 
           {/* Right: Contact Form */}
-          <div className="rounded-lg border bg-white p-6 shadow-sm">
+          <div className="rounded-xl border border-white/20 bg-white/30 dark:bg-black/30 backdrop-blur-md p-6 shadow-sm">
             <h3 className="text-xl font-semibold mb-4">Send Us a Message</h3>
             <p className="text-sm text-gray-600 mb-4">
               Prefer to message us? Fill out the form and we’ll get back to you shortly.
@@ -141,6 +141,7 @@ const ContactSection = () => {
                 required
                 value={form.name}
                 onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
+                className="bg-white/60"
               />
               <Input
                 type="email"
@@ -148,6 +149,7 @@ const ContactSection = () => {
                 required
                 value={form.email}
                 onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
+                className="bg-white/60"
               />
               <Textarea
                 placeholder="Message"
@@ -156,7 +158,7 @@ const ContactSection = () => {
                 onChange={(e) =>
                   setForm((f) => ({ ...f, message: e.target.value }))
                 }
-                className="min-h-[140px]"
+                className="min-h-[140px] bg-white/60"
               />
               <div className="flex items-center justify-between gap-3">
                 <Button

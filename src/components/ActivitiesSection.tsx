@@ -94,7 +94,6 @@ const ACTIVITIES: Activity[] = [
     id: "jet-ski",
     name: "Jet Ski",
     href: "https://serenityabaco.com/jet-ski/",
-    // Curated Jet Ski image chosen for high energy, composition and relevance:
     img: "https://images.unsplash.com/photo-1499346030926-9a72daac6c63?auto=format&fit=crop&w=1400&q=80",
     desc: "High-speed fun on the water — perfect for adrenaline seekers.",
   },
@@ -143,31 +142,40 @@ const ActivitiesSection: React.FC = () => {
           {ACTIVITIES.map((act) => (
             <article
               key={act.id}
-              className="group rounded-lg border bg-white p-4 shadow-sm flex flex-col"
+              className="group rounded-xl overflow-hidden border border-transparent bg-white/40 dark:bg-black/40 backdrop-blur-sm shadow-sm hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300"
             >
-              <div className="h-40 w-full overflow-hidden rounded-md bg-gray-100 flex items-center justify-center">
+              <div className="relative h-44 w-full overflow-hidden bg-gray-100">
                 <img
                   src={act.img ?? "/placeholder.svg"}
                   alt={act.name}
-                  className="h-full w-full object-cover group-hover:scale-105 transition-transform"
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                   loading="lazy"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
               </div>
 
-              <h3 className="mt-4 text-lg font-semibold">{act.name}</h3>
-              <p className="mt-2 text-sm text-gray-600 flex-1">{act.desc}</p>
+              <div className="p-4">
+                <h3 className="mt-0 text-lg font-semibold text-gray-900 dark:text-gray-100">
+                  {act.name}
+                </h3>
+                <p className="mt-2 text-sm text-gray-700 dark:text-gray-300 min-h-[3rem]">
+                  {act.desc}
+                </p>
 
-              <div className="mt-4">
-                <Button asChild size="sm" variant="ghost" className="justify-start px-0">
-                  <a
-                    href={act.href ?? "#"}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-[#007bff] hover:underline"
+                <div className="mt-4 flex items-center justify-between">
+                  <Button
+                    asChild
+                    size="sm"
+                    variant="ghost"
+                    className="justify-start px-0 text-[#007bff] hover:underline"
                   >
-                    Learn more
-                  </a>
-                </Button>
+                    <a href={act.href ?? "#"} target="_blank" rel="noreferrer">
+                      Learn more
+                    </a>
+                  </Button>
+
+                  <div className="text-xs text-gray-500">From our team</div>
+                </div>
               </div>
             </article>
           ))}

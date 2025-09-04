@@ -59,10 +59,10 @@ const PropertiesSection = () => {
               <img
                 src={p.img}
                 alt={p.alt}
-                className="w-full md:w-[48%] h-auto rounded-lg object-cover"
+                className="w-full md:w-[48%] h-auto rounded-lg object-cover shadow-sm"
                 loading="lazy"
               />
-              <div className="w-full md:w-[48%]">
+              <div className="w-full md:w-[48%] rounded-xl bg-white/30 dark:bg-black/30 backdrop-blur-sm p-6 shadow-sm">
                 <h3 className="text-2xl font-semibold mb-2">{p.title}</h3>
                 <p className="text-gray-700">{p.desc}</p>
               </div>
@@ -70,7 +70,7 @@ const PropertiesSection = () => {
           ))}
         </div>
         <div className="mt-10 text-center">
-          <Button asChild size="lg" className="bg-[#007bff] hover:bg-[#0056b3]">
+          <Button asChild size="lg" className="bg-[#007bff] hover:bg-[#0056b3] shadow-md">
             <a href="https://serenityabaco.com/contact-us/">Inquire About Properties</a>
           </Button>
         </div>
