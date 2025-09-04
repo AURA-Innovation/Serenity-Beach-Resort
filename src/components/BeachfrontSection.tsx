@@ -68,18 +68,14 @@ const BeachfrontSection: React.FC = () => {
           {BEACHFRONT_PROPERTIES.map((p) => (
             <article
               key={p.id}
-              className="rounded-xl overflow-hidden border border-transparent bg-white/40 dark:bg-black/40 backdrop-blur-sm shadow-sm flex flex-col hover:shadow-lg transform hover:-translate-y-1 transition-all"
+              className="rounded-lg overflow-hidden border shadow-sm bg-gray-50 flex flex-col"
             >
-              <div className="relative">
-                <img
-                  src={p.img}
-                  alt={p.name}
-                  className="w-full h-48 object-cover"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-              </div>
-
+              <img
+                src={p.img}
+                alt={p.name}
+                className="w-full h-48 object-cover"
+                loading="lazy"
+              />
               <div className="p-4 flex-1 flex flex-col">
                 <h3 className="text-xl font-semibold">{p.name}</h3>
                 <div className="mt-2 text-sm text-gray-600 space-y-1">
