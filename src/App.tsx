@@ -7,25 +7,28 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import { VapiProvider } from "@/components/vapi/VapiProvider";
 import { ENV } from "@/environment";
+import ThemeProvider from "@/components/ThemeProvider";
 
 const queryClient = new QueryClient();
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <VapiProvider apiKey={ENV.YOUR_PUBLIC_API_KEY} assistantId={ENV.YOUR_ASSISTANT_ID}>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </VapiProvider>
-    </TooltipProvider>
-  </QueryClientProvider>
+  <ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <VapiProvider apiKey={ENV.YOUR_PUBLIC_API_KEY} assistantId={ENV.YOUR_ASSISTANT_ID}>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </VapiProvider>
+      </TooltipProvider>
+    </QueryClientProvider>
+  </ThemeProvider>
 );
 
 export default App;

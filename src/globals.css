@@ -6,34 +6,24 @@
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
-
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
-
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-
     --primary: 222.2 47.4% 11.2%;
     --primary-foreground: 210 40% 98%;
-
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
-
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
-
     --accent: 210 40% 96.1%;
     --accent-foreground: 222.2 47.4% 11.2%;
-
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
-
     --radius: 0.5rem;
-
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
     --sidebar-primary: 240 5.9% 10%;
@@ -102,6 +92,12 @@
     scroll-behavior: smooth;
     scroll-padding-top: 80px;
   }
+}
+
+/* Theme palette transition helper: applied briefly on toggle */
+.theme-transition,
+.theme-transition * {
+  transition: background-color 250ms ease, color 250ms ease, border-color 250ms ease, fill 250ms ease, stroke 250ms ease, box-shadow 250ms ease;
 }
 
 /* Upgraded nav underline: turquoise -> gold gradient */
@@ -212,12 +208,8 @@
 }
 
 /* Warm sand accent backgrounds */
-.bg-sand-50 {
-  background-color: #fefcf8;
-}
-.bg-sand-100 {
-  background-color: #fdf8f0;
-}
+.bg-sand-50 { background-color: #fefcf8; }
+.bg-sand-100 { background-color: #fdf8f0; }
 
 /* Interactive filter tabs */
 .filter-tab {
@@ -272,10 +264,7 @@
 }
 
 /* Optional shiny sheen on hover */
-.hover-shimmer {
-  position: relative;
-  overflow: hidden;
-}
+.hover-shimmer { position: relative; overflow: hidden; }
 .hover-shimmer::after {
   content: "";
   position: absolute;
@@ -325,20 +314,10 @@
   transform: translateY(-3px) perspective(1000px) rotateX(2deg) rotateY(-1deg);
 }
 
-/* Horizontal scroll lock: prevent sideways panning on mobile */
-html, body, #root {
-  max-width: 100%;
-  overflow-x: hidden;
-}
-body {
-  position: relative;
-  overscroll-behavior-x: none;
-  touch-action: pan-y;
-}
-/* Extra safety: clip overflow at major containers */
-main, header, footer, section {
-  overflow-x: clip;
-}
+/* Horizontal scroll lock */
+html, body, #root { max-width: 100%; overflow-x: hidden; }
+body { position: relative; overscroll-behavior-x: none; touch-action: pan-y; }
+main, header, footer, section { overflow-x: clip; }
 
 /* Accessibility: respect reduced motion */
 @media (prefers-reduced-motion: reduce) {

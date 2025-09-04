@@ -13,6 +13,7 @@ import {
 import { useIsMobile } from "@/hooks/use-mobile";
 import NavCallButton from "@/components/NavCallButton";
 import { CONTACT } from "@/config/contact";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const NAV_LINKS = [
   { label: "The Resort", href: "#resort" },
@@ -121,6 +122,7 @@ const HeaderNav: React.FC = () => {
               </a>
             );
           })}
+          <ThemeToggle />
           <NavCallButton />
           <Button
             asChild={!isMobile}
@@ -171,6 +173,12 @@ const HeaderNav: React.FC = () => {
                     {link.label}
                   </Button>
                 ))}
+
+                <div className="flex items-center gap-2">
+                  <ThemeToggle />
+                  <span className="text-sm text-gray-600">Theme</span>
+                </div>
+
                 <NavCallButton />
                 <Button
                   className="mt-2 bg-[#007bff] hover:bg-[#0056b3] btn-lux btn-gold-hover"
