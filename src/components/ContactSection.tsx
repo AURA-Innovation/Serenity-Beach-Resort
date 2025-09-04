@@ -1,11 +1,18 @@
 "use client";
 
+import React from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import React from "react";
 import { toast } from "sonner";
 import { useInView } from "@/hooks/useInView";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
 
 const CONTACT = {
   name: "Serenity Beach Resort",
@@ -25,17 +32,24 @@ const ContactSection = () => {
     name: "",
     email: "",
     message: "",
+    inquiryType: "General",
+    preferredTime: "",
   });
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
     const id = toast.loading("Sending message...");
-    // Simulate network delay for demo purposes
     setTimeout(() => {
-      toast.success("Message sent! Thank you.", { id });
+      toast.success("Message sent! Thank you.", {
+        id,
+        action: {
+          label: "Book a call",
+          onClick: () => (window.location.href = `tel:${CONTACT.phone}`),
+        },
+      });
       setSubmitting(false);
-      setForm({ name: "", email: "", message: "" });
+      setForm({ name: "", email: "", message: "", inquiryType: "General", preferredTime: "" });
     }, 900);
   };
 
@@ -43,20 +57,17 @@ const ContactSection = () => {
     <section id="contact" className="py-16">
       <div
         ref={ref}
-        className={`mx-auto max-w-[1200px] px-4 transition-all duration-700 ${
-          inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-        }`}
+        className={`mx-auto max-w-[1200px] px-4 transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
       >
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
           Contact Serenity Beach Resort
         </h2>
-        <p className="text-center text-gray-700 max-w-2xl mx-auto">
+        <p className="text-center text-gray-700 max-w-[65ch] leading-7 mx-auto">
           We would love to hear from you — whether it’s to book a treatment, inquire about properties,
           or plan an unforgettable stay.
         </p>
 
         <div className="mt-8 grid gap-8 md:grid-cols-2 items-start">
-          {/* Left: Contact Info + Map */}
           <div className="space-y-6">
             <div className="rounded-lg border bg-white p-6 shadow-sm">
               <h3 className="text-xl font-semibold mb-3">{CONTACT.name}</h3>
@@ -75,19 +86,13 @@ const ContactSection = () => {
               <div className="text-gray-700 space-y-1">
                 <div>
                   <strong>Phone: </strong>
-                  <a
-                    href={`tel:${CONTACT.phone}`}
-                    className="text-[#007bff] hover:underline"
-                  >
+                  <a href={`tel:${CONTACT.phone}`} className="text-[#007bff] hover:underline">
                     {CONTACT.phonePretty}
                   </a>
                 </div>
                 <div>
                   <strong>Email: </strong>
-                  <a
-                    href={`mailto:${CONTACT.email}`}
-                    className="text-[#007bff] hover:underline"
-                  >
+                  <a href={`mailto:${CONTACT.email}`} className="text-[#007bff] hover:underline">
                     {CONTACT.email}
                   </a>
                 </div>
@@ -128,7 +133,6 @@ const ContactSection = () => {
             </div>
           </div>
 
-          {/* Right: Contact Form */}
           <div className="rounded-lg border bg-white p-6 shadow-sm">
             <h3 className="text-xl font-semibold mb-4">Send Us a Message</h3>
             <p className="text-sm text-gray-600 mb-4">
@@ -136,26 +140,52 @@ const ContactSection = () => {
             </p>
 
             <form onSubmit={onSubmit} className="grid gap-4" aria-label="Contact form">
-              <Input
-                placeholder="Name"
-                required
-                value={form.name}
-                onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
-              />
-              <Input
-                type="email"
-                placeholder="Email"
-                required
-                value={form.email}
-                onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
-              />
+              <div className="grid gap-3 sm:grid-cols-2">
+                <Input
+                  placeholder="Name"
+                  required
+                  value={form.name}
+                  onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
+                />
+                <Input
+                  type="email"
+                  placeholder="Email"
+                  required
+                  value={form.email}
+                  onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
+                />
+              </div>
+
+              <div className="grid gap-3 sm:grid-cols-2">
+                <Select
+                  value={form.inquiryType}
+                  onValueChange={(v) => setForm((f) => ({ ...f, inquiryType: v }))}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Inquiry type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="General">General</SelectItem>
+                    <SelectItem value="Property">Property</SelectItem>
+                    <SelectItem value="Activities">Activities</SelectItem>
+                    <SelectItem value="Spa">Spa</SelectItem>
+                    <SelectItem value="Events">Events</SelectItem>
+                  </SelectContent>
+                </Select>
+
+                <Input
+                  type="time"
+                  placeholder="Preferred contact time"
+                  value={form.preferredTime}
+                  onChange={(e) => setForm((f) => ({ ...f, preferredTime: e.target.value }))}
+                />
+              </div>
+
               <Textarea
                 placeholder="Message"
                 required
                 value={form.message}
-                onChange={(e) =>
-                  setForm((f) => ({ ...f, message: e.target.value }))
-                }
+                onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))}
                 className="min-h-[140px]"
               />
               <div className="flex items-center justify-between gap-3">

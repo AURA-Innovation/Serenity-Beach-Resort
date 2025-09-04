@@ -3,6 +3,9 @@
 import React from "react";
 import { useInView } from "@/hooks/useInView";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+
+type Status = "Available" | "Reserved" | "Sold";
 
 type BeachfrontProp = {
   id: string;
@@ -12,6 +15,7 @@ type BeachfrontProp = {
   elevation?: string;
   features?: string;
   img: string;
+  status: Status;
 };
 
 const BEACHFRONT_PROPERTIES: BeachfrontProp[] = [
@@ -23,6 +27,7 @@ const BEACHFRONT_PROPERTIES: BeachfrontProp[] = [
     elevation: "10 - 20 ft",
     features: "Beach View • Sunrise View",
     img: "https://serenityabaco.com/wp-content/uploads/2022/05/IMG_5229.png",
+    status: "Available",
   },
   {
     id: "bf-2",
@@ -32,6 +37,7 @@ const BEACHFRONT_PROPERTIES: BeachfrontProp[] = [
     elevation: "10 - 20 ft",
     features: "Beach View • Sunrise View",
     img: "https://serenityabaco.com/wp-content/uploads/2022/05/IMG_5230.png",
+    status: "Reserved",
   },
   {
     id: "bf-3",
@@ -41,8 +47,16 @@ const BEACHFRONT_PROPERTIES: BeachfrontProp[] = [
     elevation: "10 - 20 ft",
     features: "Beach View • Sunset View",
     img: "https://serenityabaco.com/wp-content/uploads/2022/05/IMG_5231.png",
+    status: "Sold",
   },
 ];
+
+const statusClass = (s: Status) =>
+  s === "Available"
+    ? "bg-emerald-600"
+    : s === "Reserved"
+      ? "bg-amber-600"
+      : "bg-gray-500";
 
 const BeachfrontSection: React.FC = () => {
   const { ref, inView } = useInView<HTMLDivElement>();
@@ -51,15 +65,13 @@ const BeachfrontSection: React.FC = () => {
     <section id="beachfront" className="py-16 bg-white">
       <div
         ref={ref}
-        className={`mx-auto max-w-[1200px] px-4 transition-all duration-700 ${
-          inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-        }`}
+        className={`mx-auto max-w-[1200px] px-4 transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
       >
         <div className="text-center mb-8">
           <h2 className="text-3xl md:text-4xl font-bold">
             Bahamas Property For Sale — Beachfront
           </h2>
-          <p className="mt-2 text-gray-600 max-w-2xl mx-auto">
+          <p className="mt-2 text-gray-600 max-w-[65ch] mx-auto leading-7">
             Explore our premier beachfront lots — exceptional frontage, sunrise views, and immediate access to white-sand beaches.
           </p>
         </div>
@@ -70,12 +82,17 @@ const BeachfrontSection: React.FC = () => {
               key={p.id}
               className="rounded-lg overflow-hidden border shadow-sm bg-gray-50 flex flex-col"
             >
-              <img
-                src={p.img}
-                alt={p.name}
-                className="w-full h-48 object-cover"
-                loading="lazy"
-              />
+              <div className="relative">
+                <img
+                  src={p.img}
+                  alt={`${p.name} beachfront parcel with ${p.frontage}`}
+                  className="w-full h-48 object-cover"
+                  loading="lazy"
+                />
+                <span className={`absolute top-3 left-3 text-xs text-white px-2 py-1 rounded ${statusClass(p.status)}`}>
+                  {p.status}
+                </span>
+              </div>
               <div className="p-4 flex-1 flex flex-col">
                 <h3 className="text-xl font-semibold">{p.name}</h3>
                 <div className="mt-2 text-sm text-gray-600 space-y-1">
@@ -106,6 +123,18 @@ const BeachfrontSection: React.FC = () => {
                   <div className="flex gap-2">
                     <Button asChild size="sm" variant="outline">
                       <a href="#contact">Inquire</a>
+                    </Button>
+                    <Button
+                      asChild
+                      size="sm"
+                      variant="outline"
+                      className="text-[#007bff] border-[#007bff]"
+                    >
+                      <a
+                        href={`mailto:mhawn@ranchesatbeltcreek.com?subject=Property%20details%20request:%20${encodeURIComponent(p.name)}`}
+                      >
+                        Email me details
+                      </a>
                     </Button>
                     <Button asChild size="sm" className="bg-[#007bff] hover:bg-[#0056b3]">
                       <a href={`https://serenityabaco.com/bahamas-property-for-sale/#${p.id}`} target="_blank" rel="noreferrer">

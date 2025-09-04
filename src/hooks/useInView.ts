@@ -7,6 +7,13 @@ export function useInView<T extends HTMLElement>(options?: IntersectionObserverI
   const [inView, setInView] = useState(false);
 
   useEffect(() => {
+    // Respect user preference for reduced motion
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReduced) {
+      setInView(true);
+      return;
+    }
+
     if (!ref.current) return;
     const observer = new IntersectionObserver(
       (entries) => {
