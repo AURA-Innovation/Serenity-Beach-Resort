@@ -4,9 +4,10 @@ import { useEffect, useRef, useState } from "react";
 
 type UseInViewOptions = IntersectionObserverInit & {
   once?: boolean;
-  enterDebounceMs?: number; // optional delay before entering (default 0 for instant re-animations)
-  exitDebounceMs?: number;  // delay before exiting to avoid flicker
+  enterDebounceMs?: number; // optional small delay before entering (default 0 = instant)
+  exitDebounceMs?: number;  // delay before exiting to avoid flicker at the boundary
   exitThresholdRatio?: number; // require being really out before exiting
+  outMarginPx?: number; // how far fully out of viewport to consider instant exit
 };
 
 export function useInView<T extends HTMLElement>(options?: UseInViewOptions) {
@@ -37,6 +38,7 @@ export function useInView<T extends HTMLElement>(options?: UseInViewOptions) {
       enterDebounceMs = 0,
       exitDebounceMs = 220,
       exitThresholdRatio = 0.01,
+      outMarginPx = 8,
       root = null,
       rootMargin = "0px 0px -30% 0px",
       threshold = 0.15,
@@ -83,7 +85,7 @@ export function useInView<T extends HTMLElement>(options?: UseInViewOptions) {
         }
 
         if (visible) {
-          // Enter: commit immediately (or after optional small enter debounce)
+          // Enter: commit immediately (or with small optional delay)
           clearExitTimer();
           if (!inViewRef.current) {
             if (enterDebounceMs > 0) {
@@ -93,27 +95,47 @@ export function useInView<T extends HTMLElement>(options?: UseInViewOptions) {
               commit(true);
             }
           }
-        } else {
-          // Exit: only if really out (very low ratio), and after a short debounce
-          if (!inViewRef.current) {
-            // Already out; ensure timers cleared
-            clearExitTimer();
-            clearEnterTimer();
-            return;
-          }
-          if (ratio > exitThresholdRatio) {
-            // Not truly out; ignore this flip
-            return;
-          }
-          // Schedule debounced exit; cancel if it becomes visible again before timeout
-          clearExitTimer();
-          exitTimerRef.current = window.setTimeout(() => {
-            // If we haven't re-entered by now, mark as out
-            if (inViewRef.current) {
-              commit(false);
-            }
-          }, exitDebounceMs);
+          return;
         }
+
+        // Not visible: decide if we exit immediately or debounce
+        const rect = entry.boundingClientRect;
+        const rootTop = entry.rootBounds?.top ?? 0;
+        const rootBottom =
+          entry.rootBounds?.bottom ??
+          (typeof window !== "undefined" ? window.innerHeight : 0);
+
+        const fullyAbove = rect.bottom <= rootTop + outMarginPx;
+        const fullyBelow = rect.top >= rootBottom - outMarginPx;
+        const fullyOffscreen = fullyAbove || fullyBelow;
+
+        if (!inViewRef.current) {
+          // Already out; ensure timers cleared
+          clearExitTimer();
+          clearEnterTimer();
+          return;
+        }
+
+        if (fullyOffscreen) {
+          // Instant exit when fully off-screen so quick scrolls reset animations immediately
+          clearExitTimer();
+          clearEnterTimer();
+          commit(false);
+          return;
+        }
+
+        if (ratio > exitThresholdRatio) {
+          // Still partially intersecting; ignore to prevent flicker
+          return;
+        }
+
+        // Debounced exit near the boundary to avoid rapid flip loops
+        clearExitTimer();
+        exitTimerRef.current = window.setTimeout(() => {
+          if (inViewRef.current) {
+            commit(false);
+          }
+        }, exitDebounceMs);
       },
       { root, rootMargin, threshold }
     );
