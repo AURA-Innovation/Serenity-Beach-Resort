@@ -25,37 +25,57 @@ const HeroChatPanel: React.FC<HeroChatPanelProps> = ({ className = "", onSend })
     <div
       className={[
         "pointer-events-auto z-50",
-        // Expanded to fill horizontally
+        // Full width and scalable typography
         "glass-panel hover-shimmer rounded-2xl p-4 md:p-5 shadow-lg",
-        "w-full max-w-none", // removed max-w-md constraint
-        "self-stretch", // helps inside flex/grid parents
+        "w-full max-w-none self-stretch",
+        // Scales with zoom and respects root font size
+        "text-[clamp(0.95rem,1vw+0.85rem,1.1rem)] leading-normal",
         className,
       ].join(" ")}
     >
       <form onSubmit={handleSubmit} className="flex w-full flex-col gap-3">
-        {/* Quick actions (optional) */}
         <div className="flex flex-wrap items-center gap-2">
-          <Button type="button" variant="secondary" size="sm" onClick={() => setMessage("Show me pricing")}>
+          <Button
+            type="button"
+            variant="secondary"
+            size="sm"
+            className="text-inherit min-h-[2.4em] h-auto px-[0.9em] py-[0.5em]"
+            onClick={() => setMessage("Show me pricing")}
+          >
             Pricing
           </Button>
-          <Button type="button" variant="secondary" size="sm" onClick={() => setMessage("Check availability for next weekend")}>
+          <Button
+            type="button"
+            variant="secondary"
+            size="sm"
+            className="text-inherit min-h-[2.4em] h-auto px-[0.9em] py-[0.5em]"
+            onClick={() => setMessage("Check availability for next weekend")}
+          >
             Availability
           </Button>
-          <Button type="button" variant="secondary" size="sm" onClick={() => setMessage("What amenities are included?")}>
+          <Button
+            type="button"
+            variant="secondary"
+            size="sm"
+            className="text-inherit min-h-[2.4em] h-auto px-[0.9em] py-[0.5em]"
+            onClick={() => setMessage("What amenities are included?")}
+          >
             Amenities
           </Button>
         </div>
 
-        {/* Fieldbox row: input fills all horizontal space */}
         <div className="flex items-center gap-2 w-full">
           <Input
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Ask anything about the ranch..."
-            className="flex-1 min-w-0 w-full"
+            className="flex-1 min-w-0 w-full text-inherit h-auto min-h-[2.75em] px-[0.9em] py-[0.6em]"
           />
-          <Button type="submit" className="shrink-0">
-            <Send className="h-4 w-4" />
+          <Button
+            type="submit"
+            className="shrink-0 text-inherit min-h-[2.75em] h-auto px-[0.95em] py-[0.6em]"
+          >
+            <Send className="h-[1em] w-[1em]" />
             <span className="sr-only">Send</span>
           </Button>
         </div>
