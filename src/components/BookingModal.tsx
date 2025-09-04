@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dialog";
 import { BOOKING_URL } from "@/config/booking";
 import { Skeleton } from "@/components/ui/skeleton";
-import { X } from "lucide-react";
+import { X, AlertTriangle } from "lucide-react";
 
 type Props = {
   open: boolean;
@@ -20,10 +20,43 @@ type Props = {
 
 const BookingModal: React.FC<Props> = ({ open, onOpenChange }) => {
   const [loaded, setLoaded] = React.useState(false);
+  const [blocked, setBlocked] = React.useState(false);
+  const timerRef = React.useRef<number | null>(null);
 
   React.useEffect(() => {
-    if (!open) setLoaded(false);
+    // Reset state on close
+    if (!open) {
+      setLoaded(false);
+      setBlocked(false);
+      if (timerRef.current) {
+        window.clearTimeout(timerRef.current);
+        timerRef.current = null;
+      }
+      return;
+    }
+
+    // If the iframe doesn't load within a short window, assume it's blocked by X-Frame-Options / CSP.
+    timerRef.current = window.setTimeout(() => {
+      if (!loaded) setBlocked(true);
+    }, 3000);
+
+    return () => {
+      if (timerRef.current) {
+        window.clearTimeout(timerRef.current);
+        timerRef.current = null;
+      }
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
+
+  const handleLoaded = () => {
+    if (timerRef.current) {
+      window.clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
+    setBlocked(false);
+    setLoaded(true);
+  };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -68,7 +101,7 @@ const BookingModal: React.FC<Props> = ({ open, onOpenChange }) => {
           </div>
 
           <div className="relative flex-1 bg-white">
-            {!loaded && (
+            {!loaded && !blocked && (
               <div className="absolute inset-0 p-4">
                 <div className="h-full w-full rounded-lg border">
                   <div className="h-10 bg-gray-50 border-b px-4 flex items-center gap-2">
@@ -82,14 +115,38 @@ const BookingModal: React.FC<Props> = ({ open, onOpenChange }) => {
                 </div>
               </div>
             )}
+
+            {blocked && !loaded && (
+              <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 p-6 text-center">
+                <AlertTriangle className="h-10 w-10 text-amber-600" />
+                <div>
+                  <h3 className="text-base font-medium">Booking site can’t load here</h3>
+                  <p className="mt-1 text-sm text-gray-600 max-w-sm">
+                    Some booking providers block embedding inside other sites. Please open the
+                    booking page in a new tab to continue.
+                  </p>
+                </div>
+                <div className="flex gap-2">
+                  <Button asChild className="bg-[#007bff] hover:bg-[#0056b3]">
+                    <a href={BOOKING_URL} target="_blank" rel="noreferrer">
+                      Open in new tab
+                    </a>
+                  </Button>
+                  <Button variant="outline" onClick={() => onOpenChange(false)}>
+                    Close
+                  </Button>
+                </div>
+              </div>
+            )}
+
             <iframe
               title="Serenity Beach Booking"
               src={BOOKING_URL}
-              className="h-full w-full"
+              className={`h-full w-full ${blocked && !loaded ? "hidden" : ""}`}
               loading="eager"
               referrerPolicy="no-referrer-when-downgrade"
-              onLoad={() => setLoaded(true)}
-              // Sandbox allows forms, scripts, and same-origin to let booking run; popups open a new tab if needed
+              onLoad={handleLoaded}
+              onError={() => setBlocked(true)}
               sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox"
             />
           </div>
