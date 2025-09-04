@@ -22,7 +22,8 @@ const PROPERTIES: Category[] = [
     label: "Beachfront",
     description:
       "7 beachfront properties in Phase 1, each with 90–100 feet of beach frontage. Unmatched Eastern beach and sunrise views.",
-    img: "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&q=80",
+    // Replaced with uploaded local image
+    img: "/images/durian-bullet-JCMQo028t3Q-unsplash.jpg",
   },
   {
     key: "Oceanview",
@@ -67,7 +68,8 @@ const PropertiesSection: React.FC = () => {
 
         <div className="space-y-12">
           {PROPERTIES.map((p, idx) => {
-            const srcSet = buildUnsplashSrcSet(p.img);
+            const isUnsplash = /^https?:\/\//i.test(p.img);
+            const srcSet = isUnsplash ? buildUnsplashSrcSet(p.img) : undefined;
             const categoryItems = filterByCategory(lots, p.key);
 
             return (
@@ -84,7 +86,7 @@ const PropertiesSection: React.FC = () => {
                   <div className="relative">
                     <img
                       src={p.img}
-                      srcSet={srcSet}
+                      srcSet={isUnsplash ? srcSet : undefined}
                       sizes="(min-width: 1024px) 600px, 100vw"
                       alt={p.title}
                       className="h-full w-full object-cover"
