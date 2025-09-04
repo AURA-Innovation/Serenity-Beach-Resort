@@ -1,0 +1,22 @@
+/* Remove solid white backgrounds and white gradients on sections so themes/glass show */
+section[class~="bg-white"],
+section[class*="bg-white/"],
+section[class*="md:bg-white"],
+section[class*="lg:bg-white"],
+section[class*="xl:bg-white"],
+section[class*="2xl:bg-white"],
+section[class*="dark:bg-white"],
+section[class*="from-white"],
+section[class*="via-white"],
+section[class*="to-white"] {
+  background-color: transparent !important;
+  /* Neutralize Tailwind gradient vars if used with white stops */
+  --tw-gradient-from: transparent !important;
+  --tw-gradient-to: transparent !important;
+  --tw-gradient-stops: transparent, transparent !important;
+}
+
+/* Default sections to transparent so body/themed background is visible */
+section {
+  background-color: transparent;
+}
