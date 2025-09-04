@@ -4,6 +4,7 @@ import HeaderNav from "@/components/HeaderNav";
 import HeroSection from "@/components/HeroSection";
 import ResortIntro from "@/components/ResortIntro";
 import AboutSection from "@/components/AboutSection";
+import AbacoDevelopers from "@/components/AbacoDevelopers";
 import AmenitiesSection from "@/components/AmenitiesSection";
 import ActivitiesSection from "@/components/ActivitiesSection";
 import PropertiesSection from "@/components/PropertiesSection";
@@ -18,6 +19,7 @@ const Index = () => {
         <HeroSection />
         <ResortIntro />
         <AboutSection />
+        <AbacoDevelopers />
         <AmenitiesSection />
         <ActivitiesSection />
         <PropertiesSection />
