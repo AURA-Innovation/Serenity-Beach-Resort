@@ -14,7 +14,6 @@ const BeachfrontSection = lazy(() => import("@/components/BeachfrontSection"));
 const ActivitiesSection = lazy(() => import("@/components/ActivitiesSection"));
 const PhotosSection = lazy(() => import("@/components/PhotosSection"));
 const PropertiesSection = lazy(() => import("@/components/PropertiesSection"));
-const AvailablePropertiesSection = lazy(() => import("@/components/AvailablePropertiesSection"));
 const ContactSection = lazy(() => import("@/components/ContactSection"));
 import SiteFooter from "@/components/SiteFooter";
 import SkipToContent from "@/components/SkipToContent";
@@ -127,10 +126,6 @@ const Index = () => {
 
             <Suspense fallback={<SectionLoader />}>
               <PropertiesSection />
-            </Suspense>
-
-            <Suspense fallback={<SectionLoader />}>
-              <AvailablePropertiesSection />
             </Suspense>
 
             <Suspense fallback={<SectionLoader />}>

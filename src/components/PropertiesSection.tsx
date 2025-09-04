@@ -1,43 +1,54 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import React from "react";
 import { useInView } from "@/hooks/useInView";
-import ImageWithBlur from "@/components/ImageWithBlur";
-import { buildUnsplashSrcSet, defaultSizes } from "@/utils/img";
+import { buildUnsplashSrcSet } from "@/utils/img";
+import { AVAILABLE_PROPERTIES, type PropertyItem } from "../data/available-properties";
 
-type Property = {
-  title: "Beachfront" | "Oceanview" | "Vista";
+type CategoryKey = "Beachfront" | "Oceanview" | "Vista";
+
+type Category = {
+  key: CategoryKey;
+  title: string;
+  label: string;
+  description: string;
   img: string;
-  alt: string;
-  desc: string;
 };
 
-const PROPERTIES: Property[] = [
+const PROPERTIES: Category[] = [
   {
-    title: "Beachfront",
-    img: "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&q=80",
-    alt: "Luxury beachfront property with direct beach access and pristine white sand",
-    desc:
+    key: "Beachfront",
+    title: "Luxury beachfront property with direct beach access and pristine white sand",
+    label: "Beachfront",
+    description:
       "7 beachfront properties in Phase 1, each with 90–100 feet of beach frontage. Unmatched Eastern beach and sunrise views.",
+    img: "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&q=80",
   },
   {
-    title: "Oceanview",
-    img: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80",
-    alt: "Elevated oceanview property with panoramic Caribbean sea vistas",
-    desc:
+    key: "Oceanview",
+    title: "Elevated oceanview property with panoramic Caribbean sea vistas",
+    label: "Oceanview",
+    description:
       "8 oceanview properties about 30 feet above the beachfront. Incredible ocean and sunrise views, a minute’s walk to the beach.",
+    img: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80",
   },
   {
-    title: "Vista",
-    img: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&q=80",
-    alt: "Hilltop vista property with 360-degree ocean and island views",
-    desc:
+    key: "Vista",
+    title: "Hilltop vista property with 360-degree ocean and island views",
+    label: "Vista",
+    description:
       "7 vista properties at 60–70 feet elevation with 360° views of the ocean to the East and the Sea of Abaco to the West. Stunning sunrise and sunset vistas.",
+    img: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&q=80",
   },
 ];
 
-const PropertiesSection = () => {
+function filterByCategory(items: PropertyItem[], key: CategoryKey) {
+  return items.filter((p) => p.kind === "Lot" && p.subtype === key);
+}
+
+const PropertiesSection: React.FC = () => {
   const { ref, inView } = useInView<HTMLDivElement>();
+  const lots = React.useMemo(() => AVAILABLE_PROPERTIES.filter((p) => p.kind === "Lot"), []);
 
   return (
     <section id="properties" className="bg-sand-50 py-16">
@@ -47,39 +58,103 @@ const PropertiesSection = () => {
           inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
         }`}
       >
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-10">
-          Properties For Sale
-        </h2>
+        <div className="text-center mb-10">
+          <h2 className="text-3xl md:text-4xl font-bold">Properties For Sale</h2>
+          <p className="mt-2 text-gray-700 max-w-[70ch] mx-auto">
+            Explore beachfront, oceanview, and hilltop vista lots designed for elevated island living.
+          </p>
+        </div>
+
         <div className="space-y-12">
           {PROPERTIES.map((p, idx) => {
             const srcSet = buildUnsplashSrcSet(p.img);
+            const categoryItems = filterByCategory(lots, p.key);
+
             return (
-              <div
-                key={p.title}
-                className={`flex items-center gap-6 flex-wrap rounded-2xl border bg-white/70 backdrop-blur p-4 md:p-6 card-lift-tilt transition-shadow ${
-                  idx % 2 === 1 ? "md:flex-row-reverse" : ""
-                } hover:border-[#d4af37]/50 hover:shadow-[0_16px_36px_-18px_rgba(212,175,55,0.35)]`}
+              <section
+                key={p.key}
+                id={`properties-${p.key.toLowerCase()}`}
+                className="rounded-xl overflow-hidden bg-white shadow-sm ring-1 ring-black/5"
+                style={{
+                  animation: inView ? `fadeUp 700ms ease-out ${idx * 70}ms forwards` : "none",
+                  opacity: inView ? 1 : 0,
+                }}
               >
-                <ImageWithBlur
-                  src={p.img}
-                  alt={p.alt}
-                  srcSet={srcSet}
-                  sizes="(max-width: 1024px) 100vw, 48vw"
-                  className="w-full h-full object-cover transition-transform duration-300 hover:scale-[1.02]"
-                  containerClassName="w-full md:w-[48%] aspect-[4/3] rounded-xl overflow-hidden shadow-sm"
-                />
-                <div className="w-full md:w-[48%]">
-                  <h3 className="text-2xl font-semibold mb-2">{p.title}</h3>
-                  <p className="text-gray-700">{p.desc}</p>
+                <div className="grid md:grid-cols-2">
+                  <div className="relative">
+                    <img
+                      src={p.img}
+                      srcSet={srcSet}
+                      sizes="(min-width: 1024px) 600px, 100vw"
+                      alt={p.title}
+                      className="h-full w-full object-cover"
+                      loading={idx > 0 ? "lazy" : "eager"}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
+                    <div className="absolute bottom-4 left-4 text-white">
+                      <span className="inline-block rounded bg-white/20 backdrop-blur px-2 py-1 text-sm">
+                        {p.label}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="p-6 md:p-8">
+                    <h3 className="text-2xl font-semibold">{p.title}</h3>
+                    <p className="mt-2 text-gray-700">{p.description}</p>
+
+                    <div className="mt-6">
+                      <h4 className="font-medium text-gray-900">
+                        Available {p.label.toLowerCase()} listings
+                        <span className="ml-2 text-gray-500 text-sm">({categoryItems.length})</span>
+                      </h4>
+
+                      {categoryItems.length === 0 ? (
+                        <p className="text-gray-600 mt-2">No listings currently available.</p>
+                      ) : (
+                        <ul className="mt-3 grid gap-3 sm:grid-cols-2">
+                          {categoryItems.map((item) => (
+                            <li
+                              key={item.id}
+                              className="rounded-lg border bg-white p-4 hover:shadow-sm transition"
+                            >
+                              <div className="flex items-start justify-between gap-3">
+                                <div>
+                                  <div className="font-semibold text-gray-900">{item.name}</div>
+                                  <div className="mt-1 text-sm text-gray-700">
+                                    <span className="mr-2">
+                                      <strong>Size:</strong> {item.size}
+                                    </span>
+                                    {item.elevation && (
+                                      <span className="mr-2">
+                                        <strong>Elevation:</strong> {item.elevation}
+                                      </span>
+                                    )}
+                                    {item.widthOrFrontage && (
+                                      <span>
+                                        <strong>Frontage/Width:</strong> {item.widthOrFrontage}
+                                      </span>
+                                    )}
+                                  </div>
+                                </div>
+                              </div>
+
+                              {item.details?.length ? (
+                                <ul className="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
+                                  {item.details.slice(0, 3).map((d, i) => (
+                                    <li key={i}>{d}</li>
+                                  ))}
+                                </ul>
+                              ) : null}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  </div>
                 </div>
-              </div>
+              </section>
             );
           })}
-        </div>
-        <div className="mt-10 text-center">
-          <Button asChild size="lg" className="bg-[#007bff] hover:bg-[#0056b3] btn-lux btn-gold-hover">
-            <a href="https://serenityabaco.com/contact-us/">Inquire About Properties</a>
-          </Button>
         </div>
       </div>
     </section>
