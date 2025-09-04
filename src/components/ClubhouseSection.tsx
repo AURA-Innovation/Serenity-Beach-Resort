@@ -8,6 +8,11 @@ import { buildUnsplashSrcSet } from "@/utils/img";
 
 const CLUBHOUSE_IMAGES = [
   {
+    src: "/images/bahamas-clubhouse-768x531.png",
+    alt: "Architectural rendering of Serenity Beach Clubhouse with tiered pools and terraces",
+    aspect: "aspect-[4/3]",
+  },
+  {
     src: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&q=80",
     alt: "Luxury resort clubhouse with infinity pool and panoramic ocean views",
   },
@@ -78,18 +83,21 @@ const ClubhouseSection: React.FC = () => {
           </div>
 
           <div className="space-y-4">
-            {CLUBHOUSE_IMAGES.map((img) => (
-              <div key={img.src} className="rounded-2xl overflow-hidden glass-panel hover-shimmer">
-                <ImageWithBlur
-                  src={img.src}
-                  alt={img.alt}
-                  srcSet={buildUnsplashSrcSet(img.src)}
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  containerClassName="w-full aspect-[16/9]"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            ))}
+            {CLUBHOUSE_IMAGES.map((img) => {
+              const isRemote = /^https?:\/\//i.test(img.src);
+              return (
+                <div key={img.src} className="rounded-2xl overflow-hidden glass-panel hover-shimmer">
+                  <ImageWithBlur
+                    src={img.src}
+                    alt={img.alt}
+                    srcSet={isRemote ? buildUnsplashSrcSet(img.src) : undefined}
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    containerClassName={`w-full ${img.aspect ?? "aspect-[16/9]"}`}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              );
+            })}
           </div>
         </div>
 
