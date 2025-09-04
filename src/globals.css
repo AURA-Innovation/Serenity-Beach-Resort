@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "tailwindcss-animate";
 
 /* Map semantic colors to Tailwind v4 color utilities (bg-background, text-foreground, etc.) */
 @theme {
