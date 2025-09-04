@@ -75,6 +75,8 @@ const HeaderNav: React.FC = () => {
     ? "text-gray-700 hover:text-[#007bff]"
     : "text-white/90 hover:text-white";
 
+  const brandTextClass = scrolled ? "text-gray-800" : "text-white/95";
+
   return (
     <header className={`fixed top-0 z-50 w-full transition-colors ${headerBg}`}>
       <div className="mx-auto max-w-[1200px] px-4 py-2.5 flex items-center justify-between">
@@ -85,6 +87,12 @@ const HeaderNav: React.FC = () => {
             className="h-8 w-auto"
             loading="eager"
           />
+          <span
+            className={`hidden sm:inline text-sm font-semibold tracking-[0.16em] ${brandTextClass}`}
+            style={{ fontVariantCaps: "small-caps", fontVariantLigatures: "discretionary-ligatures" } as React.CSSProperties}
+          >
+            Serenity Beach
+          </span>
         </a>
 
         <nav className="hidden md:flex items-center gap-6">
@@ -103,7 +111,7 @@ const HeaderNav: React.FC = () => {
           <NavCallButton />
           <Button
             asChild={!isMobile}
-            className={`${scrolled ? "" : "bg-white/10 hover:bg-white/20 border-white/30 text-white"} bg-[#007bff] hover:bg-[#0056b3] btn-lux`}
+            className={`${scrolled ? "" : "bg-white/10 hover:bg-white/20 border-white/30 text-white"} bg-[#007bff] hover:bg-[#0056b3] btn-lux btn-gold-hover`}
           >
             {isMobile ? (
               <a href={`tel:${PHONE}`}>Call Us</a>
@@ -133,6 +141,9 @@ const HeaderNav: React.FC = () => {
                     alt="Serenity Abaco Logo"
                     className="h-8 w-auto"
                   />
+                  <span className="text-sm font-semibold tracking-[0.16em]" style={{ fontVariantCaps: "small-caps" } as React.CSSProperties}>
+                    Serenity Beach
+                  </span>
                 </SheetTitle>
               </SheetHeader>
               <div className="mt-6 grid gap-3">
@@ -148,7 +159,7 @@ const HeaderNav: React.FC = () => {
                 ))}
                 <NavCallButton />
                 <Button
-                  className="mt-2 bg-[#007bff] hover:bg-[#0056b3] btn-lux"
+                  className="mt-2 bg-[#007bff] hover:bg-[#0056b3] btn-lux btn-gold-hover"
                   onClick={() => handleNavClick("#contact")}
                 >
                   {isMobile ? "Call Us" : "Contact Us"}

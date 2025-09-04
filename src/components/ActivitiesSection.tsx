@@ -197,7 +197,7 @@ const ActivitiesSection: React.FC = () => {
             <Button
               key={f}
               variant={filter === f ? "default" : "outline"}
-              className={`${filter === f ? "bg-[#007bff] hover:bg-[#0056b3]" : ""} btn-lux`}
+              className={`${filter === f ? "bg-[#007bff] hover:bg-[#0056b3]" : ""} btn-lux btn-gold-hover`}
               onClick={() => setFilter(f)}
               size="sm"
             >
@@ -207,10 +207,11 @@ const ActivitiesSection: React.FC = () => {
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {filtered.map((act) => (
+          {filtered.map((act, i) => (
             <article
               key={act.id}
-              className="group rounded-xl border bg-white/80 backdrop-blur card-lift shadow-sm flex flex-col overflow-hidden"
+              className={`group rounded-xl border bg-white/80 backdrop-blur card-lift shadow-sm flex flex-col overflow-hidden ${inView ? "" : "opacity-0"}`}
+              style={{ animation: inView ? `fadeUp 700ms ease-out ${i * 70}ms forwards` : "none" }}
             >
               <div className="h-40 w-full overflow-hidden bg-gray-100 flex items-center justify-center">
                 <img
@@ -241,7 +242,7 @@ const ActivitiesSection: React.FC = () => {
                   </Button>
                   <Button
                     size="sm"
-                    className="bg-[#007bff] hover:bg-[#0056b3] btn-lux"
+                    className="bg-[#007bff] hover:bg-[#0056b3] btn-lux btn-gold-hover"
                     onClick={() => setActive(act)}
                   >
                     Plan this
@@ -279,7 +280,7 @@ const ActivitiesSection: React.FC = () => {
                     </a>
                   </Button>
                 )}
-                <Button asChild className="bg-[#007bff] hover:bg-[#0056b3] btn-lux">
+                <Button asChild className="bg-[#007bff] hover:bg-[#0056b3] btn-lux btn-gold-hover">
                   <a href="#contact">Plan this activity</a>
                 </Button>
               </div>

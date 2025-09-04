@@ -11,7 +11,9 @@ const AVATAR =
   "https://serenityabaco.com/wp-content/uploads/2022/05/logo-1.png";
 
 const VapiWidget: React.FC = () => {
-  const { isConnected, isConnecting, isSpeaking, startCall, endCall } = useVapi();
+  const { isConnected, isConnecting, isSpeaking, startCall, endCall, transcript } = useVapi();
+
+  const recent = transcript.slice(-2);
 
   return (
     <div className="fixed bottom-6 right-6 z-50">
@@ -40,7 +42,7 @@ const VapiWidget: React.FC = () => {
           )}
         </Button>
       ) : (
-        <div className="rounded-2xl bg-emerald-600 text-white shadow-xl p-3 w-[260px]">
+        <div className="rounded-2xl bg-emerald-600 text-white shadow-xl p-3 w-[280px]">
           <div className="flex items-center gap-3">
             <img
               src={AVATAR}
@@ -55,6 +57,25 @@ const VapiWidget: React.FC = () => {
             </div>
             <WaveformBars className="h-6" barClassName={`${isSpeaking ? "" : "opacity-50"}`} />
           </div>
+
+          {recent.length > 0 && (
+            <div className="mt-3 space-y-2">
+              {recent.map((m, i) => {
+                const isAssistant = m.role === "assistant";
+                return (
+                  <div
+                    key={i}
+                    className={`text-xs rounded-xl px-3 py-2 ${
+                      isAssistant ? "bg-white/15 border border-white/20" : "bg-white/10 border border-white/10"
+                    }`}
+                  >
+                    <span className="opacity-80">{m.text}</span>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+
           <div className="mt-3 flex gap-2">
             <Button
               onClick={endCall}

@@ -52,9 +52,9 @@ const PropertiesSection = () => {
           {PROPERTIES.map((p, idx) => (
             <div
               key={p.title}
-              className={`flex items-center gap-6 flex-wrap rounded-2xl border bg-white/70 backdrop-blur p-4 md:p-6 card-lift ${
+              className={`flex items-center gap-6 flex-wrap rounded-2xl border bg-white/70 backdrop-blur p-4 md:p-6 card-lift transition-shadow ${
                 idx % 2 === 1 ? "md:flex-row-reverse" : ""
-              }`}
+              } hover:border-[#d4af37]/50 hover:shadow-[0_16px_36px_-18px_rgba(212,175,55,0.35)]`}
             >
               <img
                 src={p.img}
@@ -70,7 +70,7 @@ const PropertiesSection = () => {
           ))}
         </div>
         <div className="mt-10 text-center">
-          <Button asChild size="lg" className="bg-[#007bff] hover:bg-[#0056b3] btn-lux">
+          <Button asChild size="lg" className="bg-[#007bff] hover:bg-[#0056b3] btn-lux btn-gold-hover">
             <a href="https://serenityabaco.com/contact-us/">Inquire About Properties</a>
           </Button>
         </div>

@@ -105,7 +105,7 @@ const ContactSection = () => {
                   </a>
                 </Button>
 
-                <Button asChild className="bg-[#007bff] hover:bg-[#0056b3]">
+                <Button asChild className="bg-[#007bff] hover:bg-[#0056b3] btn-lux btn-gold-hover">
                   <a href="#booking">Request a Call</a>
                 </Button>
               </div>
@@ -133,7 +133,7 @@ const ContactSection = () => {
             </div>
           </div>
 
-          <div className="rounded-lg border bg-white p-6 shadow-sm">
+          <div className="rounded-2xl border border-white/30 bg-white/60 backdrop-blur-md p-6 shadow-lg">
             <h3 className="text-xl font-semibold mb-4">Send Us a Message</h3>
             <p className="text-sm text-gray-600 mb-4">
               Prefer to message us? Fill out the form and we’ll get back to you shortly.
@@ -191,13 +191,13 @@ const ContactSection = () => {
               <div className="flex items-center justify-between gap-3">
                 <Button
                   type="submit"
-                  className="bg-[#007bff] hover:bg-[#0056b3]"
+                  className="bg-[#007bff] hover:bg-[#0056b3] btn-lux btn-gold-hover"
                   disabled={submitting}
                 >
                   {submitting ? "Sending..." : "Send Message"}
                 </Button>
 
-                <div className="text-sm text-gray-500">
+                <div className="text-sm text-gray-600">
                   Or call us:{" "}
                   <a href={`tel:${CONTACT.phone}`} className="text-[#007bff] hover:underline">
                     {CONTACT.phonePretty}
