@@ -2,7 +2,7 @@
 
 const SiteFooter = () => {
   return (
-    <footer className="glass-dark mt-12 border-t border-white/6">
+    <footer className="bg-[#343a40] text-white">
       <div className="mx-auto max-w-[1200px] px-4 py-12 flex flex-wrap gap-8 justify-between">
         <div className="min-w-[220px]">
           <img
@@ -11,7 +11,7 @@ const SiteFooter = () => {
             className="h-10 w-auto mb-4"
             loading="lazy"
           />
-          <h4 className="text-sm font-semibold text-gray-200 mb-3">Pages</h4>
+          <h4 className="text-sm font-semibold text-gray-300 mb-3">Pages</h4>
           <ul className="space-y-2 text-gray-300">
             <li><a href="#resort" className="hover:text-[#007bff]">The Resort</a></li>
             <li><a href="#about" className="hover:text-[#007bff]">About Us</a></li>
@@ -22,7 +22,7 @@ const SiteFooter = () => {
         </div>
 
         <div className="min-w-[220px]">
-          <h4 className="text-sm font-semibold text-gray-200 mb-3">Property Related</h4>
+          <h4 className="text-sm font-semibold text-gray-300 mb-3">Property Related</h4>
           <ul className="space-y-2 text-gray-300">
             <li><a href="#properties" className="hover:text-[#007bff]">Bahamas Property For Sale</a></li>
             <li><a href="#masterplan" className="hover:text-[#007bff]">Master Plan</a></li>
@@ -30,7 +30,7 @@ const SiteFooter = () => {
         </div>
 
         <div className="min-w-[220px]">
-          <h4 className="text-sm font-semibold text-gray-200 mb-3">Contact Info</h4>
+          <h4 className="text-sm font-semibold text-gray-300 mb-3">Contact Info</h4>
           <ul className="space-y-2 text-gray-300">
             <li>
               <a
@@ -53,7 +53,7 @@ const SiteFooter = () => {
         </div>
       </div>
 
-      <div className="border-t border-white/8">
+      <div className="border-t border-white/10">
         <div className="mx-auto max-w-[1200px] px-4 py-6 text-center text-sm text-gray-400">
           Copyright © 2022 Serenity Beach Abaco Bahamas. All Rights Reserved. Designed and Developed by{" "}
           <strong>
