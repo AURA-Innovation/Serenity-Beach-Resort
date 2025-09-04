@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import HeaderNav from "@/components/HeaderNav";
 import HeroSection from "@/components/HeroSection";
 import HeroChatPanel from "@/components/HeroChatPanel";
 import AboutSection from "@/components/AboutSection";
@@ -16,6 +17,8 @@ import ContactSection from "@/components/ContactSection";
 const Index: React.FC = () => {
   return (
     <main className="min-h-screen">
+      <HeaderNav />
+
       <section className="relative">
         <HeroSection />
         <div className="pointer-events-none absolute bottom-6 right-6 left-6 md:left-auto z-30 flex justify-center md:justify-end">
