@@ -82,7 +82,7 @@ const Index = () => {
 
   return (
     <VapiProvider apiKey={ENV.YOUR_PUBLIC_API_KEY} assistantId={ENV.YOUR_ASSISTANT_ID}>
-      <div className="min-h-screen bg-background text-foreground">
+      <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
         <SkipToContent />
         <HeaderNav />
         <ErrorBoundary>

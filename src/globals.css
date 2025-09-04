@@ -244,7 +244,7 @@
   transition: transform 180ms ease, backdrop-filter 240ms ease;
 }
 .glass-panel:hover {
-  transform: translateY(-2px) perspective(1000px) rotateX(3deg) rotateY(-1deg);
+  transform: translateY(-2px);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
 }
@@ -268,4 +268,19 @@
   backdrop-filter: blur(25px);
   -webkit-backdrop-filter: blur(25px);
   transform: translateY(-3px) perspective(1000px) rotateX(2deg) rotateY(-1deg);
+}
+
+/* Horizontal scroll lock: prevent sideways panning on mobile */
+html, body, #root {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+body {
+  position: relative;
+  overscroll-behavior-x: none;
+  touch-action: pan-y;
+}
+/* Extra safety: clip overflow at major containers */
+main, header, footer, section {
+  overflow-x: clip;
 }
