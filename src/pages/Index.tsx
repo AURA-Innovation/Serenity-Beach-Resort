@@ -21,6 +21,7 @@ import ScrollToTop from "@/components/ScrollToTop";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
 import VapiWidget from "@/components/VapiWidget";
 import TestAssistantPanel from "@/components/TestAssistantPanel";
+import { ENV } from "@/environment";
 
 const Index = () => {
   React.useEffect(() => {
@@ -61,8 +62,8 @@ const Index = () => {
       <StickyMobileCTA />
       {/* Voice widget (uses mic; browser will prompt for permission) */}
       <VapiWidget
-        apiKey="cf022073-8795-431b-9aa1-8acef8ee9d50"
-        assistantId="899066b1-1e06-4e00-acf8-722cf59c9ae1"
+        apiKey={ENV.YOUR_PUBLIC_API_KEY}
+        assistantId={ENV.YOUR_ASSISTANT_ID}
       />
     </div>
   );
