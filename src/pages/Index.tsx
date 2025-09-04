@@ -6,6 +6,7 @@ import ResortIntro from "@/components/ResortIntro";
 import AboutSection from "@/components/AboutSection";
 import AbacoDevelopers from "@/components/AbacoDevelopers";
 import AmenitiesSection from "@/components/AmenitiesSection";
+import ClubhouseSection from "@/components/ClubhouseSection";
 import ActivitiesSection from "@/components/ActivitiesSection";
 import PropertiesSection from "@/components/PropertiesSection";
 import ContactSection from "@/components/ContactSection";
@@ -21,6 +22,7 @@ const Index = () => {
         <AboutSection />
         <AbacoDevelopers />
         <AmenitiesSection />
+        <ClubhouseSection />
         <ActivitiesSection />
         <PropertiesSection />
         <ContactSection />
