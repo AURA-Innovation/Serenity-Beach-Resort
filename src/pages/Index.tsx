@@ -19,6 +19,7 @@ import SiteFooter from "@/components/SiteFooter";
 import SkipToContent from "@/components/SkipToContent";
 import ScrollToTop from "@/components/ScrollToTop";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
+import VapiWidget from "@/components/VapiWidget";
 
 const Index = () => {
   React.useEffect(() => {
@@ -56,6 +57,11 @@ const Index = () => {
       <SiteFooter />
       <ScrollToTop />
       <StickyMobileCTA />
+      {/* Voice widget (uses mic; browser will prompt for permission) */}
+      <VapiWidget
+        apiKey="cf022073-8795-431b-9aa1-8acef8ee9d50"
+        assistantId="899066b1-1e06-4e00-acf8-722cf59c9ae1"
+      />
     </div>
   );
 };
