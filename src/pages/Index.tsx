@@ -8,6 +8,7 @@ import AbacoDevelopers from "@/components/AbacoDevelopers";
 import AmenitiesSection from "@/components/AmenitiesSection";
 import ClubhouseSection from "@/components/ClubhouseSection";
 import SpaSection from "@/components/SpaSection";
+import BeachfrontSection from "@/components/BeachfrontSection";
 import ActivitiesSection from "@/components/ActivitiesSection";
 import PropertiesSection from "@/components/PropertiesSection";
 import ContactSection from "@/components/ContactSection";
@@ -25,6 +26,7 @@ const Index = () => {
         <AmenitiesSection />
         <ClubhouseSection />
         <SpaSection />
+        <BeachfrontSection />
         <ActivitiesSection />
         <PropertiesSection />
         <ContactSection />
