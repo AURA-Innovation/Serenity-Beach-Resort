@@ -20,7 +20,8 @@ export function useInView<T extends HTMLElement>(options?: UseInViewOptions) {
 
     if (!ref.current) return;
 
-    const { once = false, ...observerOpts } = options || {};
+    // Make animations run once by default to avoid flicker on scroll.
+    const { once = true, ...observerOpts } = options || {};
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
