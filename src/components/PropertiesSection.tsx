@@ -22,7 +22,6 @@ const PROPERTIES: Category[] = [
     label: "Beachfront",
     description:
       "7 beachfront properties in Phase 1, each with 90–100 feet of beach frontage. Unmatched Eastern beach and sunrise views.",
-    // Replaced with uploaded local image
     img: "/images/durian-bullet-JCMQo028t3Q-unsplash.jpg",
   },
   {
@@ -39,7 +38,8 @@ const PROPERTIES: Category[] = [
     label: "Vista",
     description:
       "7 vista properties at 60–70 feet elevation with 360° views of the ocean to the East and the Sea of Abaco to the West. Stunning sunrise and sunset vistas.",
-    img: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&q=80",
+    // Replaced with uploaded local image
+    img: "/images/vista-main.jpg",
   },
 ];
 
