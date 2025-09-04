@@ -4,6 +4,7 @@ import React from "react";
 import { MessageCircle, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { toast } from "sonner";
 
 type Props = {
   className?: string;
@@ -14,7 +15,8 @@ const HeroChatPanel: React.FC<Props> = ({ className }) => {
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // UI only: No AI sends. Keep it minimal for now.
+    if (!value.trim()) return;
+    toast.error("Agent Not Connected!");
     setValue("");
   };
 
@@ -25,7 +27,7 @@ const HeroChatPanel: React.FC<Props> = ({ className }) => {
       className={[
         "glass-panel hover-shimmer rounded-2xl p-4 md:p-5 shadow-lg w-full max-w-md",
         "backdrop-blur supports-[backdrop-filter]:backdrop-blur",
-        "bg-white/10 border-white/25",
+        "bg-white/10 border border-white/25",
         className ?? "",
       ].join(" ")}
       role="complementary"
